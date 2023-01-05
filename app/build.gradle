@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.forreddithomework'
+    namespace 'com.example.humblrvsv'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.forreddithomework"
+        applicationId "com.example.humblrvsv"
         minSdk 24
         targetSdk 33
         versionCode 1
