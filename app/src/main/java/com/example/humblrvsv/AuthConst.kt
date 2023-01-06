@@ -1,6 +1,7 @@
 package com.example.humblrvsv
 
 const val CLIENT_ID = "zdwsgJ9mGSF2PtavB-3vjQ"
+const val CLIENT_SECRET = ""
 const val RESPONSE_TYPE = "code"
 const val STATE = "my_state"
 const val REDIRECT_URI = "https://humblrvsv/redirect"

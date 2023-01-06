@@ -12,11 +12,12 @@
         tools:layout="@layout/fragment_auth">
         <deepLink
             android:id="@+id/deepLink"
-            app:uri="https://humblrvsv/redirect?state=mrvsv&amp;code={code}" />
+            app:uri="https://humblrvsv/redirect?state=my_state&amp;code={code}" />
         <argument
             android:name="code"
             app:argType="string"
-            app:nullable="true" />
+            android:defaultValue=""/>
     </fragment>
+
 
 </navigation>
