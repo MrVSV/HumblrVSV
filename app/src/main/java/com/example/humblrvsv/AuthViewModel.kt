@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(private val apiToken: ApiToken) : BaseViewModel() {
+class AuthViewModel @Inject constructor(private val apiToken: ApiToken, private val apiSaved: ApiSaved) : BaseViewModel() {
 
     private val _token = MutableSharedFlow<String>()
     val token = _token.asSharedFlow()
@@ -48,4 +48,6 @@ class AuthViewModel @Inject constructor(private val apiToken: ApiToken) : BaseVi
         const val PLUG = ""
         const val START_REQUEST = "start_request"
     }
+
+    suspend fun getSaved() = apiSaved.getSaved()
 }

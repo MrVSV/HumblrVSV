@@ -30,6 +30,12 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
         loadingObserve()
         viewModel.createToken(args.code)
         Log.e(TAG, "createToken: ${args.code}")
+
+        binding.test.setOnClickListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.getSaved()
+            }
+        }
     }
 
     private fun startAuth() {
@@ -58,19 +64,22 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
                         setLoadState(
                             buttonIsEnabled = true,
                             textIsVisible = false,
-                            progressIsVisible = false
+                            progressIsVisible = false,
+                            testIsVisible = false
                         )
                     LoadState.LOADING ->
                         setLoadState(
-                        buttonIsEnabled = false,
-                        textIsVisible = false,
-                        progressIsVisible = true
-                    )
+                            buttonIsEnabled = false,
+                            textIsVisible = false,
+                            progressIsVisible = true,
+                            testIsVisible = false
+                        )
                     LoadState.SUCCESS -> {
                         setLoadState(
                             buttonIsEnabled = false,
                             textIsVisible = true,
-                            progressIsVisible = false
+                            progressIsVisible = false,
+                            testIsVisible = true
                         )
 
 //                        findNavController().navigate(R.id.action_authFragment_to_navigation_photos)
@@ -79,7 +88,8 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
                         setLoadState(
                             buttonIsEnabled = true,
                             textIsVisible = true,
-                            progressIsVisible = false
+                            progressIsVisible = false,
+                            testIsVisible = false
                         )
                         Log.e(TAG, "loadingObserve: ${loadState.message}")
                         binding.text.text = loadState.message
@@ -92,10 +102,12 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
     private fun setLoadState(
         buttonIsEnabled: Boolean,
         textIsVisible: Boolean,
-        progressIsVisible: Boolean
+        progressIsVisible: Boolean,
+        testIsVisible: Boolean,
     ) {
         binding.btnAuth.isEnabled = buttonIsEnabled
         binding.text.isVisible = textIsVisible
         binding.progressBar.isVisible = progressIsVisible
+        binding.test.isVisible = testIsVisible
     }
 }

@@ -58,9 +58,9 @@ class ApiModule {
     @Singleton
     fun provideApiToken(retrofit: Retrofit): ApiToken = retrofit.create(ApiToken::class.java)
 
-//    @Provides
-//    @Singleton
-//    fun provideApiPhotos(retrofit: Retrofit): ApiPhotos = retrofit.create(ApiPhotos::class.java)
+    @Provides
+    @Singleton
+    fun provideApiSaved(retrofit: Retrofit): ApiSaved = retrofit.create(ApiSaved::class.java)
 //
 //    @Provides
 //    @Singleton
