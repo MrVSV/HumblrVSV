@@ -60,13 +60,11 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
+    //Logging Interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6'
 
-    //Retrofit, Gson
+    //Retrofit, Moshi
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.google.code.gson:gson:2.9.0'
-
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
     implementation 'com.squareup.moshi:moshi:1.14.0'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.14.0'

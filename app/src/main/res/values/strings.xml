@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">HumblrVSV</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="onboarding_texts_array">
+        <item>Make photo, publish, gather an audience, get feedback!</item>
+        <item>Share with friends, make collections</item>
+        <item>Upload your favorite pictures and track statistics</item>
+    </string-array>
 </resources>
