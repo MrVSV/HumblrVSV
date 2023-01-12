@@ -1,11 +1,10 @@
 package com.example.humblrvsv.presentation
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.humblrvsv.data.api.ApiSaved
 import com.example.humblrvsv.data.api.ApiToken
-import com.example.humblrvsv.data.api.dto.Kind
+import com.example.humblrvsv.data.api.dto.KindDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -52,7 +51,7 @@ class AuthViewModel @Inject constructor(private val apiToken: ApiToken, private 
         const val START_REQUEST = "start_request"
     }
 
-    suspend fun getSaved(): Kind {
+    suspend fun getSaved(): KindDto {
         Log.d("class", "getSaved: ${apiSaved.getSaved().data}")
         return apiSaved.getSaved()
     }

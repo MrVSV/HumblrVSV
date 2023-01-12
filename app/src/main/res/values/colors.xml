@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background">#0AC4C4C4</color>
     <color name="primary">#5222D0</color>
+    <color name="green_join">#0EAA14</color>
+    <color name="red_leave">#DD463B</color>
 </resources>

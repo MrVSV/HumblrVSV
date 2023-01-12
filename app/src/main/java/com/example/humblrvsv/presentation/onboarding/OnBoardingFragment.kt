@@ -7,7 +7,9 @@ import com.example.humblrvsv.R
 import com.example.humblrvsv.databinding.FragmentOnBoardingBinding
 import com.example.humblrvsv.presentation.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
 
     override fun initBinding(inflater: LayoutInflater) =

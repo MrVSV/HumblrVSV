@@ -1,6 +1,7 @@
 package com.example.humblrvsv.di
 
 import android.content.Context
+import com.example.humblrvsv.data.api.ApiMain
 import com.example.humblrvsv.data.api.ApiSaved
 import com.example.humblrvsv.data.api.ApiToken
 import com.example.humblrvsv.data.api.interceptor.AuthTokenInterceptor
@@ -63,10 +64,10 @@ class ApiModule {
     @Provides
     @Singleton
     fun provideApiSaved(retrofit: Retrofit): ApiSaved = retrofit.create(ApiSaved::class.java)
-//
-//    @Provides
-//    @Singleton
-//    fun provideApiDigest(retrofit: Retrofit): ApiDigest = retrofit.create(ApiDigest::class.java)
+
+    @Provides
+    @Singleton
+    fun provideApiMain(retrofit: Retrofit): ApiMain = retrofit.create(ApiMain::class.java)
 //
 //    @Provides
 //    @Singleton

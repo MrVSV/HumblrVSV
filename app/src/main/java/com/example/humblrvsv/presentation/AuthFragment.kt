@@ -11,6 +11,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.humblrvsv.CALL
 import com.example.humblrvsv.TOKEN_ENABLED_KEY
@@ -22,7 +23,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AuthFragment : BaseFragment<FragmentAuthBinding>() {
-    override fun initBinding(inflater: LayoutInflater) = FragmentAuthBinding.inflate(inflater)
+    override fun initBinding(inflater: LayoutInflater) =
+        FragmentAuthBinding.inflate(inflater)
     private val viewModel by viewModels<AuthViewModel>()
     private val args by navArgs<AuthFragmentArgs>()
 
@@ -36,9 +38,7 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
         Log.e(TAG, "createToken: ${args.code}")
 
         binding.test.setOnClickListener {
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.getSaved()
-            }
+            findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToHomeFragment())
         }
     }
 
