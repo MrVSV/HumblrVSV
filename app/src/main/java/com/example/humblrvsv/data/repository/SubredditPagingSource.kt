@@ -4,8 +4,6 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.humblrvsv.data.api.dto.KindDto
-import com.example.humblrvsv.data.api.dto.rawsub.SubredditListingDto
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.repository.RemoteRepository
 import javax.inject.Inject

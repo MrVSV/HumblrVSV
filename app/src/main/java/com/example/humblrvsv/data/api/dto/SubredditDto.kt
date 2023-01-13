@@ -1,6 +1,5 @@
 package com.example.humblrvsv.data.api.dto
 
-import com.example.humblrvsv.data.api.dto.rawsub.SubredditListingDto
 import com.example.humblrvsv.domain.model.Subreddit
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

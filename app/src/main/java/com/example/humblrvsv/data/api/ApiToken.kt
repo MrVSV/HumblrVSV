@@ -24,9 +24,9 @@ interface ApiToken {
         private const val authString = "$CLIENT_ID:$CLIENT_SECRET"
         val encodedAuthString: String =
             Base64.encodeToString(authString.toByteArray(), Base64.NO_WRAP)
-
     }
 }
+
 @JsonClass(generateAdapter = true)
 class ResponseToken(
     @Json(name = "access_token")

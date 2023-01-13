@@ -6,4 +6,5 @@
         <item>Share with friends, make collections</item>
         <item>Upload your favorite pictures and track statistics</item>
     </string-array>
+    <string name="separator_text">-</string>
 </resources>

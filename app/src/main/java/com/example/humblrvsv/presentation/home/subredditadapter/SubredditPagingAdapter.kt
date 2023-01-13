@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation.home.adapter
+package com.example.humblrvsv.presentation.home.subredditadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

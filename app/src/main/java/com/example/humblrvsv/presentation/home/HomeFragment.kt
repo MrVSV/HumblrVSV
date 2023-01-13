@@ -3,16 +3,18 @@ package com.example.humblrvsv.presentation.home
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.humblrvsv.databinding.FragmentHomeBinding
+import com.example.humblrvsv.domain.model.Link
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.presentation.BaseFragment
-import com.example.humblrvsv.presentation.home.adapter.SubredditPagingAdapter
+import com.example.humblrvsv.presentation.home.linkadapter.LinkPagingAdapter
+import com.example.humblrvsv.presentation.home.subredditadapter.SubredditPagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -20,8 +22,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         FragmentHomeBinding.inflate(inflater)
 
     private val viewModel by viewModels<HomeViewModel>()
-    private val adapter by lazy {
-        SubredditPagingAdapter { item -> onClick(item) }
+    private val subredditAdapter by lazy {
+        SubredditPagingAdapter { item -> onSubredditClick(item) }
+    }
+    private val linkAdapter by lazy {
+        LinkPagingAdapter { item -> onLinkClick(item) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,29 +36,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         observe("")
         setSource()
         loadStateItemsObserve()
-
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.getSubList().collect { pagingData ->
-//                adapter.submitData(pagingData)
-//            }
-//        }
-
     }
 
     private fun settingAdapter() {
-        binding.recycler.adapter = adapter
+        binding.toggleModel.addOnButtonCheckedListener { _, _, _ ->
+            if (binding.btnLink.isChecked) binding.recycler.adapter = linkAdapter
+            if (binding.btnSub.isChecked) binding.recycler.adapter = subredditAdapter
+        }
         binding.recycler.itemAnimator?.changeDuration = 0
     }
 
     private fun observe(source: String?) {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.getSubList(source).collect { pagingData ->
-                adapter.submitData(pagingData)
+                subredditAdapter.submitData(pagingData)
             }
         }
     }
 
-    private fun setSource(){
+    private fun setSource() {
         binding.toggleOrder.addOnButtonCheckedListener { _, _, _ ->
             if (binding.btnPop.isChecked) observe("")
             if (binding.btnNew.isChecked) observe("new")
@@ -63,16 +64,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun loadStateItemsObserve() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            adapter.loadStateFlow.collect { state ->
+            subredditAdapter.loadStateFlow.collect { state ->
                 if (state.refresh is LoadState.Loading || state.append is LoadState.Loading)
-                binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
+                else binding.progressBar.visibility = View.GONE
+            }
+            linkAdapter.loadStateFlow.collect { state ->
+                if (state.refresh is LoadState.Loading || state.append is LoadState.Loading)
+                    binding.progressBar.visibility = View.VISIBLE
                 else binding.progressBar.visibility = View.GONE
             }
         }
     }
 
 
-    private fun onClick(item: Subreddit) {
-
-    }
+    private fun onSubredditClick(item: Subreddit) {}
+    private fun onLinkClick(item: Link) {}
 }

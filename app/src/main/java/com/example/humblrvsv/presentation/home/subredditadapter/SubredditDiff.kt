@@ -1,7 +1,6 @@
-package com.example.humblrvsv.presentation.home.adapter
+package com.example.humblrvsv.presentation.home.subredditadapter
 
 
-import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
 import com.example.humblrvsv.domain.model.Subreddit
 

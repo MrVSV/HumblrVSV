@@ -1,3 +1,9 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -36,7 +42,9 @@ android {
     buildFeatures {
         viewBinding true
     }
+
 }
+
 
 dependencies {
 
@@ -83,4 +91,11 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     kapt 'com.github.bumptech.glide:compiler:4.14.2'
+
+    //Groupie
+    implementation 'com.github.lisawray.groupie:groupie:2.10.1'
+    implementation "com.github.lisawray.groupie:groupie-viewbinding:2.10.1"
+
+    //RelativeTime
+    implementation 'com.github.curioustechizen.android-ago:library:1.4.0'
 }

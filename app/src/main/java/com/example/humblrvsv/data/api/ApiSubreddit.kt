@@ -1,12 +1,11 @@
 package com.example.humblrvsv.data.api
 
-import com.example.humblrvsv.data.api.dto.KindDto
-import com.example.humblrvsv.data.api.dto.rawsub.SubredditListingDto
+import com.example.humblrvsv.data.api.dto.SubredditListingDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface ApiMain {
+interface ApiSubreddit {
 
     @GET("/subreddits/{source}")
     suspend fun getKind(

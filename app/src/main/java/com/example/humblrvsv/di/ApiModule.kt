@@ -1,7 +1,7 @@
 package com.example.humblrvsv.di
 
 import android.content.Context
-import com.example.humblrvsv.data.api.ApiMain
+import com.example.humblrvsv.data.api.ApiSubreddit
 import com.example.humblrvsv.data.api.ApiSaved
 import com.example.humblrvsv.data.api.ApiToken
 import com.example.humblrvsv.data.api.interceptor.AuthTokenInterceptor
@@ -67,7 +67,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideApiMain(retrofit: Retrofit): ApiMain = retrofit.create(ApiMain::class.java)
+    fun provideApiSubreddit(retrofit: Retrofit): ApiSubreddit = retrofit.create(ApiSubreddit::class.java)
 //
 //    @Provides
 //    @Singleton
