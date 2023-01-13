@@ -12,6 +12,6 @@ class RemoteRepositoryImpl @Inject constructor(
     private val apiMain: ApiMain
 ) : RemoteRepository {
 
-    override suspend fun getSubredditList(page: String): List<Subreddit> =
-        apiMain.getKind(page).data.children.toListSubreddit()
+    override suspend fun getSubredditList(source: String?, page: String): List<Subreddit> =
+        apiMain.getKind(source, page).data.children.toListSubreddit()
 }

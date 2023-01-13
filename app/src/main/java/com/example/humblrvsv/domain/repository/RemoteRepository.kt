@@ -5,5 +5,5 @@ import com.example.humblrvsv.domain.model.Subreddit
 
 interface RemoteRepository {
 
-    suspend fun getSubredditList(page: String): List<Subreddit>
+    suspend fun getSubredditList(source: String?, page: String): List<Subreddit>
 }

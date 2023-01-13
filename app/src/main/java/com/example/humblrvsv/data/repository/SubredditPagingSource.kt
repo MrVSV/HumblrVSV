@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 class SubredditPagingSource @Inject constructor(
     private val repository: RemoteRepository,
+    private val source: String?
 ) : PagingSource<String, Subreddit>() {
 
     override fun getRefreshKey(state: PagingState<String, Subreddit>): String = FIRST_PAGE
@@ -19,9 +20,9 @@ class SubredditPagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Subreddit> {
         Log.d(TAG, "load: ")
         val page = params.key ?: FIRST_PAGE
-        Log.i(TAG, "page: $page")
+//        Log.i(TAG, "source: $source")
         return kotlin.runCatching {
-            repository.getSubredditList(page)
+            repository.getSubredditList(source, page)
         }.fold(
             onSuccess = {
                 Log.i(TAG, "что-то грузит")
