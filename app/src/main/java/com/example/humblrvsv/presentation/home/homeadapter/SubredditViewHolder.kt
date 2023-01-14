@@ -1,14 +1,15 @@
-package com.example.humblrvsv.presentation.home.subredditadapter
+package com.example.humblrvsv.presentation.home.homeadapter
 
-import androidx.recyclerview.widget.RecyclerView
 import com.example.humblrvsv.databinding.ViewHolderSubredditBinding
 import com.example.humblrvsv.domain.model.Subreddit
+import com.example.humblrvsv.domain.model.Thing
 
 
 class SubredditViewHolder(private val binding: ViewHolderSubredditBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    BaseViewHolder<Thing>(binding) {
 
-    fun bind(item: Subreddit, onClick: (item: Subreddit) -> Unit) {
+    override fun bind(item: Thing, onClick: (item: Thing) -> Unit) {
+        item as Subreddit
         binding.root.setOnClickListener { onClick(item) }
         binding.subredditName.text = item.namePrefixed
         binding.subredditDescription.text = item.description

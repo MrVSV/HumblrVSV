@@ -7,6 +7,6 @@ data class Subreddit(
     val description: String?,
     val subscribers: Int?,
     val created: Double?,
-    val id: String?,
-    val name: String
-)
+    override val id: String,
+    override val name: String
+): Thing

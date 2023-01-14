@@ -1,4 +1,4 @@
-package com.example.humblrvsv.data.api.dto.rawsub
+package com.example.humblrvsv.data.api.dto.linkdto
 
 
 import com.squareup.moshi.Json
@@ -12,10 +12,6 @@ data class LinkListingDto(
     @JsonClass(generateAdapter = true)
     data class LinkListingDataDto(
         val after: String,
-        val dist: Int,
-        val modhash: Any?,
-        @Json(name = "geo_filter")
-        val geoFilter: Any?,
         val children: List<LinkDto>,
         val before: Any?
     )

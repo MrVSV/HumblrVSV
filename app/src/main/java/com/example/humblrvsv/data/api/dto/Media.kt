@@ -1,4 +1,4 @@
-package com.example.humblrvsv.data.api.dto.rawsub
+package com.example.humblrvsv.data.api.dto
 
 
 import com.squareup.moshi.Json
@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Media(
     @Json(name = "reddit_video")
-    val redditVideo: RedditVideo
+    val redditVideo: RedditVideo?
 ){
     @JsonClass(generateAdapter = true)
     data class RedditVideo(

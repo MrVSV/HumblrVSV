@@ -1,4 +1,4 @@
-package com.example.humblrvsv.data.api.dto
+package com.example.humblrvsv.data.api.dto.subredditdto
 
 import com.squareup.moshi.JsonClass
 

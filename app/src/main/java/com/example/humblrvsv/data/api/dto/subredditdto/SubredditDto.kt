@@ -1,4 +1,4 @@
-package com.example.humblrvsv.data.api.dto
+package com.example.humblrvsv.data.api.dto.subredditdto
 
 import com.example.humblrvsv.domain.model.Subreddit
 import com.squareup.moshi.Json
@@ -38,7 +38,7 @@ class SubredditDto(
         val bannerImg: String?,
         @Json(name = "banner_background_color")
         val bannerBackgroundColor: String?,
-        val id: String?,
+        val id: String,
         val over18: Boolean?,
         @Json(name = "header_title")
         val description: String?,

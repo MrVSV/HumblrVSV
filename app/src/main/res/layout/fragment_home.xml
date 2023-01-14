@@ -7,76 +7,49 @@
     android:orientation="vertical"
     tools:context=".presentation.home.HomeFragment">
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/toggleModel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:checkedButton="@id/btnLink"
+        style="@style/RoundedTabLayoutStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:selectionRequired="true"
-        app:singleSelection="true">
+        android:layout_marginTop="10dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLink"
-            style="?attr/materialButtonOutlinedStyle"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:minHeight="11sp"
-            android:text="Posts"
-            android:textSize="11sp"
-            app:cornerRadius="11dp" />
+            android:text="Posts" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSub"
-            style="?attr/materialButtonOutlinedStyle"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:minHeight="11sp"
-            android:text="Subreddits"
-            android:textSize="11sp"
-            app:cornerRadius="11sp" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+            android:text="Subreddits" />
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
+    </com.google.android.material.tabs.TabLayout>
+
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/toggleOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:checkedButton="@id/btnPop"
+        style="@style/RoundedTabLayoutStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toggleModel"
-        app:selectionRequired="true"
-        app:singleSelection="true">
+        android:layout_marginTop="10dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPop"
-            style="?attr/materialButtonOutlinedStyle"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:minHeight="11sp"
-            android:text="popular"
-            android:textSize="11sp"
-            app:cornerRadius="11dp" />
+            android:text="Popular" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnNew"
-            style="?attr/materialButtonOutlinedStyle"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="150dp"
-            android:minHeight="11sp"
-            android:text="new"
-            android:textSize="11sp"
-            app:cornerRadius="11sp" />
+            android:text="New" />
 
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+    </com.google.android.material.tabs.TabLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
