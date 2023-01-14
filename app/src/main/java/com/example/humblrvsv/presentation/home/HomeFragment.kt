@@ -12,6 +12,7 @@ import com.example.humblrvsv.domain.model.Link
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.presentation.BaseFragment
 import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
+import com.example.humblrvsv.tools.ClickableView
 import com.example.humblrvsv.tools.setSelectedTabListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +23,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel by viewModels<HomeViewModel>()
     private val adapter by lazy {
-        HomePagingAdapter { item -> onClick(item) }
+        HomePagingAdapter { clickableView, item -> onClick(clickableView, item) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,7 +78,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
 
-    private fun onClick(item: Thing) {}
+    private fun onClick(clickableView: ClickableView, item: Thing) {}
     private fun onLinkClick(item: Link) {}
 
 }

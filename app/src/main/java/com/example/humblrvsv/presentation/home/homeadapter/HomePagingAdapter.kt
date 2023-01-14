@@ -1,5 +1,6 @@
 package com.example.humblrvsv.presentation.home.homeadapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -8,14 +9,16 @@ import com.example.humblrvsv.databinding.ViewHolderSubredditBinding
 import com.example.humblrvsv.domain.model.Link
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
+import com.example.humblrvsv.tools.ClickableView
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 class HomePagingAdapter(
-    private val onClick: (Thing) -> Unit,
+    private val onClick: (ClickableView,Thing) -> Unit,
 ) : PagingDataAdapter<Thing, BaseViewHolder<Thing>>(ThingDiff()) {
 
     override fun onBindViewHolder(holder: BaseViewHolder<Thing>, position: Int) {
         getItem(position)?.let { item ->
-            holder.bind(item) { thing -> onClick(thing) }
+            holder.bind(item) { clickableView,thing -> onClick(clickableView, thing) }
         }
     }
 
