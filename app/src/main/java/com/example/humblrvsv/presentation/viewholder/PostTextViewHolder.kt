@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation.home.homeadapter
+package com.example.humblrvsv.presentation.viewholder
 
 import android.view.ViewGroup.GONE
 import android.view.ViewGroup.VISIBLE

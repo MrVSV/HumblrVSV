@@ -8,6 +8,8 @@ import com.example.humblrvsv.databinding.ViewHolderSubredditBinding
 
 import com.example.humblrvsv.domain.model.*
 import com.example.humblrvsv.presentation.base.BaseViewHolder
+import com.example.humblrvsv.presentation.viewholder.PostTextViewHolder
+import com.example.humblrvsv.presentation.viewholder.SubredditViewHolder
 import com.example.humblrvsv.tools.ClickableView
 
 class HomePagingAdapter(

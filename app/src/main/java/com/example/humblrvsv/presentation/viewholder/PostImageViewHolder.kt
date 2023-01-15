@@ -1,8 +1,8 @@
-package com.example.humblrvsv.presentation.home.homeadapter
+package com.example.humblrvsv.presentation.viewholder
 
 import android.content.ContentValues
 import android.util.Log
-import android.view.ViewGroup
+import android.view.View
 import com.example.humblrvsv.databinding.ViewHolderPostImageBinding
 import com.example.humblrvsv.domain.model.Post
 import com.example.humblrvsv.domain.model.Thing
@@ -26,9 +26,9 @@ class PostImageViewHolder (private val binding: ViewHolderPostImageBinding) :
             Log.d(ContentValues.TAG, "bind: ${item.postHint}")
             binding.postBodyImage.apply {
                 loadImage(item.url)
-                visibility = ViewGroup.VISIBLE
+                visibility = View.VISIBLE
             }
-        }else binding.postBodyImage.visibility = ViewGroup.GONE
+        }else binding.postBodyImage.visibility = View.GONE
 
         binding.postTitle.text = item.title
 

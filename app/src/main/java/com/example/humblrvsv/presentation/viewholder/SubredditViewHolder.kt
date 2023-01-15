@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation.home.homeadapter
+package com.example.humblrvsv.presentation.viewholder
 
 import com.example.humblrvsv.databinding.ViewHolderSubredditBinding
 import com.example.humblrvsv.domain.model.Subreddit
