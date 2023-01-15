@@ -3,6 +3,7 @@ package com.example.humblrvsv.presentation.home.homeadapter
 import com.example.humblrvsv.databinding.ViewHolderSubredditBinding
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
+import com.example.humblrvsv.presentation.base.BaseViewHolder
 import com.example.humblrvsv.tools.ClickableView
 
 

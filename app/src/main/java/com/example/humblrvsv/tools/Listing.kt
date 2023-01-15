@@ -1,5 +1,5 @@
 package com.example.humblrvsv.tools
 
-enum class Listing {
-    SUBREDDIT, LINK
+enum class Listing(val param: String = "") {
+    SUBREDDIT, POST
 }

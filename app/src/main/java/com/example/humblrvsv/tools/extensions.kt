@@ -3,14 +3,22 @@ package com.example.humblrvsv.tools
 import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.humblrvsv.R
-import com.example.humblrvsv.data.api.dto.linkdto.LinkDto
+import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
+import com.example.humblrvsv.data.api.dto.commentdto.CommentListingDto
+import com.example.humblrvsv.data.api.dto.linkdto.PostDto
 import com.example.humblrvsv.data.api.dto.subredditdto.SubredditDto
-import com.example.humblrvsv.domain.model.Link
+import com.example.humblrvsv.domain.model.Comment
+import com.example.humblrvsv.domain.model.CommentListing
+import com.example.humblrvsv.domain.model.Post
 import com.example.humblrvsv.domain.model.Subreddit
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+
+fun List<CommentListingDto>.toListCommentListing(): List<CommentListing> =
+    this.map { item -> item.toCommentListing() }
+
+fun List<CommentDto>.toListComment(): List<Comment> =
+    this.map { item -> item.toComment() }
 
 fun List<SubredditDto>.toListSubreddit(): List<Subreddit> {
     val newList = mutableListOf<Subreddit>()
@@ -20,10 +28,10 @@ fun List<SubredditDto>.toListSubreddit(): List<Subreddit> {
     return newList
 }
 
-fun List<LinkDto>.toListLink(): List<Link> {
-    val newList = mutableListOf<Link>()
+fun List<PostDto>.toListPost(): List<Post> {
+    val newList = mutableListOf<Post>()
     this.forEach { item ->
-        newList.add(item.toLink())
+        newList.add(item.toPost())
     }
     return newList
 }

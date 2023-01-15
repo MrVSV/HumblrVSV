@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation
+package com.example.humblrvsv.presentation.base
 
 import androidx.lifecycle.ViewModel
 import com.example.humblrvsv.tools.LoadState

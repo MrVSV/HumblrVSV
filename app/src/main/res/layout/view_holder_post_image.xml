@@ -65,25 +65,12 @@
             app:layout_constraintTop_toBottomOf="@id/postTitle"
             app:layout_constraintVertical_bias="0">
 
-            <TextView
-                android:id="@+id/postBodyText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="@string/some_text" />
-
             <ImageView
                 android:id="@+id/postBodyImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                tools:srcCompat="@drawable/example"
-                android:visibility="gone"/>
-
-            <!--            <VideoView-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content" />-->
-
+                tools:srcCompat="@drawable/example"/>
 
         </LinearLayout>
 

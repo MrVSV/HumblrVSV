@@ -1,7 +1,7 @@
 package com.example.humblrvsv.di
 
 import android.content.Context
-import com.example.humblrvsv.data.api.ApiLink
+import com.example.humblrvsv.data.api.ApiPost
 import com.example.humblrvsv.data.api.ApiSubreddit
 import com.example.humblrvsv.data.api.ApiSaved
 import com.example.humblrvsv.data.api.ApiToken
@@ -72,6 +72,6 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideApiLink(retrofit: Retrofit): ApiLink = retrofit.create(ApiLink::class.java)
+    fun provideApiPost(retrofit: Retrofit): ApiPost = retrofit.create(ApiPost::class.java)
 
 }

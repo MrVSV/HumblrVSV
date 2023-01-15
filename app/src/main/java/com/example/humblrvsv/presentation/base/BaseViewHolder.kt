@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation.home.homeadapter
+package com.example.humblrvsv.presentation.base
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.viewbinding.ViewBinding

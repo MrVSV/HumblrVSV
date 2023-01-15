@@ -1,18 +1,17 @@
 package com.example.humblrvsv.data.api.dto.linkdto
 
-
 import com.example.humblrvsv.data.api.dto.Media
-import com.example.humblrvsv.domain.model.Link
+import com.example.humblrvsv.domain.model.Post
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class LinkDto(
+data class PostDto(
     val kind: String,
-    val data: LinkDataDto,
+    val data: PostDataDto,
 ) {
     @JsonClass(generateAdapter = true)
-    data class LinkDataDto(
+    data class PostDataDto(
         val subreddit: String,
         @Json(name = "selftext")
         val selfText: String,
@@ -44,26 +43,36 @@ data class LinkDto(
         val likes: Boolean?,
     )
 
-    fun toLink() = Link(
-        selfText = data.selfText,
-        authorFullname = data.authorFullname,
-        saved = data.saved,
-        title = data.title,
-        subredditNamePrefixed = data.subredditNamePrefixed,
-        name = data.name,
-        score = data.score,
-        thumbnail = data.thumbnail,
-        postHint = data.postHint,
-        created = data.created,
-        urlOverriddenByDest = data.urlOverriddenByDest,
-        subredditId = data.subredditId,
-        id = data.id,
-        author = data.author,
-        numComments = data.numComments,
-        permalink = data.permalink,
-        url = data.url,
-        fallbackUrl = data.media?.redditVideo?.fallbackUrl,
-        isVideo = data.isVideo,
-        likedByUser = data.likes
-    )
+    fun toPost(): Post {
+        val dir = when (data.likes) {
+            null -> 0
+            true -> 1
+            false -> -1
+        }
+        return Post(
+            selfText = data.selfText,
+            authorFullname = data.authorFullname,
+            saved = data.saved,
+            title = data.title,
+            subredditNamePrefixed = data.subredditNamePrefixed,
+            name = data.name,
+            score = data.score,
+            //        thumbnail = data.thumbnail,
+            postHint = data.postHint,
+            created = data.created,
+            //        urlOverriddenByDest = data.urlOverriddenByDest,
+            //        subredditId = data.subredditId,
+            id = data.id,
+            author = data.author,
+            numComments = data.numComments,
+            permalink = data.permalink,
+            url = data.url,
+            fallbackUrl = data.media?.redditVideo?.fallbackUrl,
+            isVideo = data.isVideo,
+            likedByUser = data.likes,
+            dir = dir
+        )
+    }
+
+
 }

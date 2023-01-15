@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation
+package com.example.humblrvsv.presentation.base
 
 import android.content.Context
 import android.os.Bundle

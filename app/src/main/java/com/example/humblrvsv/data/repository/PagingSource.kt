@@ -1,5 +1,6 @@
 package com.example.humblrvsv.data.repository
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.paging.PagingSource
@@ -9,7 +10,7 @@ import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.domain.repository.RemoteRepository
 import javax.inject.Inject
 
-class SubredditPagingSource @Inject constructor(
+class PagingSource @Inject constructor(
     private val repository: RemoteRepository,
     private val source: String?,
     private val listing: Listing
@@ -17,6 +18,7 @@ class SubredditPagingSource @Inject constructor(
 
     override fun getRefreshKey(state: PagingState<String, Thing>): String = FIRST_PAGE
 
+    @SuppressLint("SuspiciousIndentation")
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Thing> {
         Log.d(TAG, "load: ")
         val page = params.key ?: FIRST_PAGE

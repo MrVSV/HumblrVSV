@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.example.humblrvsv.presentation.AuthFragment"
+        android:name="com.example.humblrvsv.presentation.auth.AuthFragment"
         tools:layout="@layout/fragment_auth">
         <deepLink
             android:id="@+id/deepLink"

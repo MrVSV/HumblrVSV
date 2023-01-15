@@ -1,8 +1,9 @@
-package com.example.humblrvsv.presentation
+package com.example.humblrvsv.presentation.auth
 
 import androidx.lifecycle.viewModelScope
 import com.example.humblrvsv.data.api.ApiSaved
 import com.example.humblrvsv.data.api.ApiToken
+import com.example.humblrvsv.presentation.base.BaseViewModel
 import com.example.humblrvsv.tools.LoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

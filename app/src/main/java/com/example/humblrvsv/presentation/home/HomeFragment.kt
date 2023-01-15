@@ -8,11 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.example.humblrvsv.tools.Listing
 import com.example.humblrvsv.databinding.FragmentHomeBinding
-import com.example.humblrvsv.domain.model.Link
 import com.example.humblrvsv.domain.model.Thing
-import com.example.humblrvsv.presentation.BaseFragment
+import com.example.humblrvsv.presentation.base.BaseFragment
 import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
 import com.example.humblrvsv.tools.ClickableView
+import com.example.humblrvsv.tools.ClickableView.*
 import com.example.humblrvsv.tools.setSelectedTabListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,7 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun observe() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.getSubList().collect { pagingData ->
+            viewModel.getSubList.collect { pagingData ->
                 adapter.submitData(pagingData)
             }
         }
@@ -52,7 +52,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun setModel(){
         binding.toggleModel.setSelectedTabListener { position ->
             when(position){
-                0 -> viewModel.setModel(Listing.LINK) { adapter.refresh() }
+                0 -> viewModel.setModel(Listing.POST) { adapter.refresh() }
                 1 -> viewModel.setModel(Listing.SUBREDDIT) { adapter.refresh() }
             }
         }
@@ -78,7 +78,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
 
-    private fun onClick(clickableView: ClickableView, item: Thing) {}
-    private fun onLinkClick(item: Link) {}
-
+    private fun onClick(clickableView: ClickableView, item: Thing) {
+        when(clickableView){
+            UP_VOTE -> viewModel.onClick(item, UP_VOTE.vote)
+            DOWN_VOTE -> viewModel.onClick(item, DOWN_VOTE.vote)
+            SAVE -> TODO()
+            PHOTO -> TODO()
+            TITLE -> TODO()
+            COMMENT -> TODO()
+        }
+    }
 }
+
+

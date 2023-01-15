@@ -1,18 +1,17 @@
 package com.example.humblrvsv.data.api.dto.linkdto
 
 
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class LinkListingDto(
+data class PostListingDto(
     val kind: String,
-    val data: LinkListingDataDto
+    val data: PostListingDataDto
 ){
     @JsonClass(generateAdapter = true)
-    data class LinkListingDataDto(
+    data class PostListingDataDto(
         val after: String,
-        val children: List<LinkDto>,
+        val children: List<PostDto>,
         val before: Any?
     )
 }
