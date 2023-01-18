@@ -39,7 +39,11 @@
         android:id="@+id/favoritesFragment"
         android:name="com.example.humblrvsv.presentation.favorites.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_singleSubredditFragment"
+            app:destination="@id/singleSubredditFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.humblrvsv.presentation.profile.ProfileFragment"

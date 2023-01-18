@@ -26,4 +26,9 @@ interface ApiSubreddit {
     suspend fun getSubredditInfo(
         @Path("source") source: String?
     ): SubredditDto
+
+    @GET("/subreddits/mine/subscriber")
+    suspend fun getSubscribed(
+        @Query("after") page: String?
+    ): SubredditListingDto
 }

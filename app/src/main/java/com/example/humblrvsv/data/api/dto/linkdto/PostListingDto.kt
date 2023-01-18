@@ -10,7 +10,7 @@ data class PostListingDto(
 ){
     @JsonClass(generateAdapter = true)
     data class PostListingDataDto(
-        val after: String,
+        val after: String?,
         val children: List<PostDto>,
         val before: Any?
     )

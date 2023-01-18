@@ -21,4 +21,9 @@ interface ApiPost {
         @Query("dir") dir: Int,
         @Query("id") postName: String
     )
+
+    @GET("/user/CollectionOk2095/saved/")
+    suspend fun getSaved(
+        @Query("after") page: String
+    ): PostListingDto
 }

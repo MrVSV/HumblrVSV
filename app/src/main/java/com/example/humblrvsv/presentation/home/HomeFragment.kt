@@ -20,10 +20,6 @@ import com.example.humblrvsv.domain.tools.ClickableView.*
 import com.example.humblrvsv.domain.tools.setSelectedTabListener
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val POSTS = "posts"
-private const val SUBREDDITS = "subreddits"
-private const val POPULAR = "popular"
-private const val NEW = "new"
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -37,20 +33,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        if (savedInstanceState != null) {
-//            binding.tabPosts.isSelected = savedInstanceState.getBoolean(POSTS)
-//            binding.tabSubreddits.isSelected = savedInstanceState.getBoolean(SUBREDDITS)
-//            binding.tabPopular.isSelected = savedInstanceState.getBoolean(POPULAR)
-//            binding.tabNew.isSelected = savedInstanceState.getBoolean(NEW)
-//        }
-
 
         settingAdapter()
         observePagingData()
         setModel()
         setSource()
         loadStateItemsObserve()
-
     }
 
     private fun settingAdapter() {

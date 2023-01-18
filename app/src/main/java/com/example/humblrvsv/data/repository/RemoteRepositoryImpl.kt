@@ -21,6 +21,8 @@ class RemoteRepositoryImpl @Inject constructor(
             Listing.SUBREDDIT -> apiSubreddit.getSubredditListing(source, page).data.children.toListSubreddit()
             Listing.POST -> apiPost.getPostListing(source, page).data.children.toListPost()
             Listing.SUBREDDIT_POST -> apiSubreddit.getSubredditPosts(source, page).data.children.toListPost()
+            Listing.SUBSCRIBED_SUBREDDIT -> apiSubreddit.getSubscribed(page).data.children.toListSubreddit()
+            Listing.SAVED_POST -> apiPost.getSaved(page).data.children.toListPost()
         }
     }
 
@@ -30,9 +32,5 @@ class RemoteRepositoryImpl @Inject constructor(
        return apiSubreddit.getSubredditInfo(subredditName).toSubreddit()
     }
 
-//    override suspend fun getThingList(source: String?, page: String): List<Subreddit> =
-//        apiSubreddit.getSubredditListing(source, page).data.children.toListSubreddit()
-//
-//    suspend fun getLinkList(source: String?, page: String): List<Post> =
-//        apiPost.getLinkListing(source, page).data.children.toListLink()
+
 }
