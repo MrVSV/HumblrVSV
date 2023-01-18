@@ -3,6 +3,7 @@ package com.example.humblrvsv.presentation.home.homeadapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
+import com.example.humblrvsv.R
 import com.example.humblrvsv.databinding.ViewHolderPostTextBinding
 import com.example.humblrvsv.databinding.ViewHolderSubredditBinding
 
@@ -53,8 +54,8 @@ class HomePagingAdapter(
     }
 
     companion object {
-        const val SUBREDDIT: Int = 1
-        const val POST_TEXT: Int = 2
+        const val SUBREDDIT: Int = R.layout.view_holder_subreddit
+        const val POST_TEXT: Int = R.layout.view_holder_post_text
         const val LINK_IMAGE: Int = 3
     }
 }

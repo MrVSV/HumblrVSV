@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import com.example.humblrvsv.R
-import com.example.humblrvsv.domain.tools.Listing
 import com.example.humblrvsv.databinding.FragmentHomeBinding
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
@@ -18,6 +17,7 @@ import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
 import com.example.humblrvsv.domain.tools.ClickableView
 import com.example.humblrvsv.domain.tools.ClickableView.*
 import com.example.humblrvsv.domain.tools.setSelectedTabListener
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -36,8 +36,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         settingAdapter()
         observePagingData()
-        setModel()
-        setSource()
+        tableLayoutSelectedListener(binding.toggleModel,false)
+        tableLayoutSelectedListener(binding.toggleSource,true)
         loadStateItemsObserve()
     }
 
@@ -54,30 +54,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun setModel() {
-        binding.toggleModel.setSelectedTabListener { position ->
-            when (position) {
-                0 -> viewModel.setModel(Listing.POST) { adapter.refresh() }
-                1 -> viewModel.setModel(Listing.SUBREDDIT) { adapter.refresh() }
-            }
-        }
-    }
-
-    private fun setSource() {
-        binding.toggleSource.setSelectedTabListener { position ->
-            when (position) {
-                0 -> viewModel.setSource("") { adapter.refresh() }
-                1 -> viewModel.setSource("new") { adapter.refresh() }
-            }
+    private fun tableLayoutSelectedListener(tabLayout: TabLayout, isSource: Boolean) {
+        tabLayout.setSelectedTabListener {position ->
+            viewModel.setQuery(position,isSource)
         }
     }
 
     private fun loadStateItemsObserve() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             adapter.loadStateFlow.collect { state ->
-                if (state.refresh is LoadState.Loading || state.append is LoadState.Loading)
-                    binding.progressBar.visibility = View.VISIBLE
-                else binding.progressBar.visibility = View.GONE
+                binding.progressBar.isVisible =
+                    state.refresh is LoadState.Loading || state.append is LoadState.Loading
             }
         }
     }
@@ -92,10 +79,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             POST_TITLE -> TODO()
             COMMENT -> TODO()
             SUBREDDIT -> {
-                item as Subreddit
                 findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToSingleSubredditFragment(
-                        item.namePrefixed
+                        (item as Subreddit).namePrefixed
                     )
                 )
             }
