@@ -10,6 +10,7 @@ import com.example.humblrvsv.presentation.base.BaseViewHolder
 import com.example.humblrvsv.domain.tools.ClickableView
 import com.example.humblrvsv.domain.tools.loadImage
 
+/**потом надо будет разделить текстовые посты и картинки**/
 class PostImageViewHolder (private val binding: ViewHolderPostImageBinding) :
     BaseViewHolder<Thing>(binding) {
 

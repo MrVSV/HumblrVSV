@@ -1,13 +1,11 @@
 package com.example.humblrvsv.presentation.favorites
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.domain.tools.Listing
 import com.example.humblrvsv.domain.usecase.GetFavoritesUseCase
-import com.example.humblrvsv.domain.usecase.GetThingListUseCase
 import com.example.humblrvsv.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -23,21 +21,21 @@ class FavoritesViewModel@Inject constructor(
 ) : BaseViewModel() {
 
     private var job: Job? = null
-    private val _listingFlow = MutableStateFlow(Listing.POST)
+    private val _favoritesFlow = MutableStateFlow(Listing.SAVED_POST)
 
 
     /**можно сделать по-другому**/
     fun setModel(listing: Listing, refresh: () -> Unit) {
         job?.cancel()
         job = viewModelScope.launch {
-            _listingFlow.value = listing
+            _favoritesFlow.value = listing
             refresh()
         }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    var thingList: Flow<PagingData<Thing>> =
-        _listingFlow.asStateFlow().flatMapLatest { listing ->
+    var favoritesList: Flow<PagingData<Thing>> =
+        _favoritesFlow.asStateFlow().flatMapLatest { listing ->
                 getFavoritesUseCase.getFavorites(listing, "").flow
         }.cachedIn(CoroutineScope(Dispatchers.IO))
 

@@ -15,9 +15,6 @@ class PostTextViewHolder(private val binding: ViewHolderPostTextBinding) :
     override fun bind(item: Thing, onClick: (clickableView: ClickableView, thing: Thing) -> Unit) {
         item as Post
 
-        var likedByUser = item.likedByUser
-        val score = item.score
-
         showScore(item.score)
 
         binding.btnUpVote.isSelected = item.likedByUser == true
@@ -61,9 +58,7 @@ class PostTextViewHolder(private val binding: ViewHolderPostTextBinding) :
 
         binding.postTitle.text = item.title
 
-        val comments = item.numComments / 1000
-        if (item.numComments > 999) binding.commentsCount.text = "${comments}K"
-        else binding.commentsCount.text = item.numComments.toString()
+        showCommentsCount(item.numComments)
 
         binding.subredditName.text = item.subredditNamePrefixed
         binding.userName.text = "u/${item.author}"
@@ -73,6 +68,11 @@ class PostTextViewHolder(private val binding: ViewHolderPostTextBinding) :
     private fun showScore(score: Int){
         if (score > 999) binding.likes.text = "${score / 1000}k"
         else binding.likes.text = "$score"
+    }
+
+    private fun showCommentsCount(count: Int){
+        if (count > 999) binding.commentsCount.text = "${count/1000}k"
+        else binding.commentsCount.text = count.toString()
     }
 }
 

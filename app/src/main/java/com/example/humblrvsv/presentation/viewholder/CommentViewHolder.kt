@@ -6,9 +6,16 @@ import com.example.humblrvsv.domain.model.Comment
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.presentation.base.BaseViewHolder
 import com.example.humblrvsv.domain.tools.ClickableView
+import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
 
 class CommentViewHolder(private val binding: ViewHolderCommentBinding) :
     BaseViewHolder<Thing>(binding) {
+
+    private val adapter by lazy {
+        HomePagingAdapter { clickableView, item -> onClick(clickableView, item) }
+    }
+
+    private fun onClick(clickableView: ClickableView, item: Thing) {}
 
     override fun bind(item: Thing, onClick: (ClickableView, item: Thing) -> Unit) {
         item as Comment
@@ -21,5 +28,6 @@ class CommentViewHolder(private val binding: ViewHolderCommentBinding) :
             else if (binding.recyclerChild.visibility == View.VISIBLE)
                 binding.recyclerChild.visibility = View.GONE
         }
+        binding.recyclerChild.adapter = adapter
     }
 }

@@ -1,17 +1,13 @@
 package com.example.humblrvsv.presentation.favorites
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import com.example.humblrvsv.R
 import com.example.humblrvsv.databinding.FragmentFavoritesBinding
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
@@ -19,8 +15,6 @@ import com.example.humblrvsv.domain.tools.ClickableView
 import com.example.humblrvsv.domain.tools.Listing
 import com.example.humblrvsv.domain.tools.setSelectedTabListener
 import com.example.humblrvsv.presentation.base.BaseFragment
-import com.example.humblrvsv.presentation.home.HomeFragmentDirections
-import com.example.humblrvsv.presentation.home.HomeViewModel
 import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,7 +45,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
 
     private fun observePagingData() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.thingList.collect { pagingData ->
+            viewModel.favoritesList.collect { pagingData ->
                 adapter.submitData(pagingData)
             }
         }
