@@ -21,7 +21,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getThingListUseCase: GetThingListUseCase,
-    private val votePostUseCase: VotePostUseCase
 ) : BaseViewModel() {
 
     private var job: Job? = null
@@ -51,52 +50,9 @@ class HomeViewModel @Inject constructor(
         _listingFlow.asStateFlow().flatMapLatest { listing ->
             _sourceFlow.asStateFlow().flatMapLatest { source ->
                 getThingListUseCase.getThingList(listing, source).flow
-//                    .cachedIn(viewModelScope)
-//                    .combine(localChangeFlow, this::merge)
-//                    .cachedIn(viewModelScope)
             }.cachedIn(CoroutineScope(Dispatchers.IO))
         }.cachedIn(CoroutineScope(Dispatchers.IO))
 
             /**когда-нибудь тут будут работающие лайки**/
-//    private val localChange = LocalChange()
-//    private val localChangeFlow = MutableStateFlow(OnChange(localChange))
-//
-//    private fun merge(
-//        thing: PagingData<Thing>,
-//        localChange: OnChange<LocalChange>
-//    ) = thing.map { item ->
-//        item as Post
-//        val localVote = localChange.value.isVoted[item.name]
-//        val newThing =  item.copy(likedByUser = localVote)
-//        newThing as Thing
-//    }
-//
-//    private suspend fun setFlag(newItem: Thing) {
-//        newItem as Post
-//        val newFlag = newItem.likedByUser
-//        localChange.isVoted[newItem.name] = newFlag
-//        localChangeFlow.emit(OnChange(localChange))
-//    }
-//
-//    fun upVote(item: Thing) {
-//        item as Post
-//        viewModelScope.launch {
-//            Log.d("голосование", "upVote до: ${item.likedByUser}")
-//            if (item.likedByUser == true) votePostUseCase.votePost(0, item.name)
-//            else votePostUseCase.votePost(1, item.name)
-//            setFlag(item)
-//            Log.d("голосование", "upVote после: ${item.likedByUser}")
-//        }
-//    }
-//
-//    fun downVote(item: Thing) {
-//        item as Post
-//        viewModelScope.launch {
-//            Log.d("голосование", "downVote до: ${item.likedByUser}")
-//            if (item.likedByUser == false) votePostUseCase.votePost(0, item.name)
-//            else votePostUseCase.votePost(-1, item.name)
-//            setFlag(item)
-//            Log.d("голосование", "downVote после: ${item.likedByUser}")
-//        }
-//    }
+
 }
