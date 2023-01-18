@@ -17,8 +17,8 @@ interface ApiPost {
     ): PostListingDto
 
     @POST("/api/vote")
-    suspend fun voteLink(
+    suspend fun votePost(
         @Query("dir") dir: Int,
-        @Query("id") linkName: String
+        @Query("id") postName: String
     )
 }

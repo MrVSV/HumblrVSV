@@ -6,8 +6,8 @@ import com.example.humblrvsv.databinding.ViewHolderPostTextBinding
 import com.example.humblrvsv.domain.model.Post
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.presentation.base.BaseViewHolder
-import com.example.humblrvsv.tools.ClickableView
-import com.example.humblrvsv.tools.loadImage
+import com.example.humblrvsv.domain.tools.ClickableView
+import com.example.humblrvsv.domain.tools.loadImage
 
 class PostTextViewHolder(private val binding: ViewHolderPostTextBinding) :
     BaseViewHolder<Thing>(binding) {
@@ -16,63 +16,33 @@ class PostTextViewHolder(private val binding: ViewHolderPostTextBinding) :
         item as Post
 
         var likedByUser = item.likedByUser
-        var score = item.score
+        val score = item.score
 
-        showScore(score)
+        showScore(item.score)
 
-        when (item.likedByUser) {
-            true -> binding.subredditName.text = "true"
-            false -> binding.subredditName.text = "false"
-            null -> binding.subredditName.text = "null"
-        }
-        binding.btnUpVote.isSelected = likedByUser == true
+        binding.btnUpVote.isSelected = item.likedByUser == true
 
         binding.btnUpVote.setOnClickListener {
-
             onClick(ClickableView.UP_VOTE, item)
             binding.btnUpVote.isSelected = !binding.btnUpVote.isSelected
             binding.btnDownVote.isSelected = false
-//            when (likedByUser) {
-//                null -> {
-//                    likedByUser = true
-//                    score += 1
-//                }
-//                true -> {
-//                    likedByUser = null
-//                    score -= 1
-//                }
-//                false -> {
-//                    likedByUser = true
-//                    score += 2
-//                }
-//            }
-//            showScore(score)
+            showScore(item.score)
         }
 
-        binding.btnDownVote.isSelected = likedByUser == false
+        binding.btnDownVote.isSelected = item.likedByUser == false
         binding.btnDownVote.setOnClickListener {
-
             onClick(ClickableView.DOWN_VOTE, item)
             binding.btnDownVote.isSelected = !binding.btnDownVote.isSelected
             binding.btnUpVote.isSelected = false
-//            when (likedByUser) {
-//                null -> {
-//                    likedByUser = false
-//                    score -= 1
-//                }
-//                true -> {
-//                    likedByUser = false
-//                    score -= 2
-//                }
-//                false -> {
-//                    likedByUser = null
-//                    score += 1
-//                }
-//            }
-//            showScore(score)
+            showScore(item.score)
         }
-        binding.btnSave.setOnClickListener { onClick(ClickableView.SAVE, item) }
-        binding.postTitle.setOnClickListener { onClick(ClickableView.TITLE, item) }
+
+        binding.btnSave.setOnClickListener {
+            onClick(ClickableView.SAVE, item)
+        binding.btnSave.isSelected =! binding.btnSave.isSelected
+        }
+
+        binding.postTitle.setOnClickListener { onClick(ClickableView.POST_TITLE, item) }
         binding.btnComment.setOnClickListener { onClick(ClickableView.COMMENT, item) }
 
         if (item.postHint == "image") {

@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation.singlepost
+package com.example.humblrvsv.presentation.home.singlepost
 
 import androidx.lifecycle.ViewModel
 

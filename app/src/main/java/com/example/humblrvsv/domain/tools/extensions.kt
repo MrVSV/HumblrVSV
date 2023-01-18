@@ -1,8 +1,10 @@
-package com.example.humblrvsv.tools
+package com.example.humblrvsv.domain.tools
 
 import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.humblrvsv.R
 import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
 import com.example.humblrvsv.data.api.dto.commentdto.CommentListingDto
 import com.example.humblrvsv.data.api.dto.linkdto.PostDto
@@ -50,8 +52,8 @@ fun ImageView.loadImage(urls: String) {
     Log.d("Glide", "loadImage: ")
     Glide.with(this)
         .load(urls)
-//        .error(R.drawable.error_image)
-//        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//        .placeholder(R.drawable.placeholder)
+        .error(R.drawable.error_image)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .placeholder(R.drawable.placeholder)
         .into(this)
 }

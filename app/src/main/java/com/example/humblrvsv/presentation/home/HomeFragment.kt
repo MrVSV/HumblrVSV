@@ -3,18 +3,27 @@ package com.example.humblrvsv.presentation.home
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import com.example.humblrvsv.tools.Listing
+import com.example.humblrvsv.R
+import com.example.humblrvsv.domain.tools.Listing
 import com.example.humblrvsv.databinding.FragmentHomeBinding
+import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.presentation.base.BaseFragment
 import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
-import com.example.humblrvsv.tools.ClickableView
-import com.example.humblrvsv.tools.ClickableView.*
-import com.example.humblrvsv.tools.setSelectedTabListener
+import com.example.humblrvsv.domain.tools.ClickableView
+import com.example.humblrvsv.domain.tools.ClickableView.*
+import com.example.humblrvsv.domain.tools.setSelectedTabListener
 import dagger.hilt.android.AndroidEntryPoint
+
+private const val POSTS = "posts"
+private const val SUBREDDITS = "subreddits"
+private const val POPULAR = "popular"
+private const val NEW = "new"
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -28,12 +37,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        if (savedInstanceState != null) {
+//            binding.tabPosts.isSelected = savedInstanceState.getBoolean(POSTS)
+//            binding.tabSubreddits.isSelected = savedInstanceState.getBoolean(SUBREDDITS)
+//            binding.tabPopular.isSelected = savedInstanceState.getBoolean(POPULAR)
+//            binding.tabNew.isSelected = savedInstanceState.getBoolean(NEW)
+//        }
+
 
         settingAdapter()
-        observe()
+        observePagingData()
         setModel()
         setSource()
         loadStateItemsObserve()
+
     }
 
     private fun settingAdapter() {
@@ -41,17 +58,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.recycler.itemAnimator?.changeDuration = 0
     }
 
-    private fun observe() {
+    private fun observePagingData() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.getSubList.collect { pagingData ->
+            viewModel.thingList.collect { pagingData ->
                 adapter.submitData(pagingData)
             }
         }
     }
 
-    private fun setModel(){
+    private fun setModel() {
         binding.toggleModel.setSelectedTabListener { position ->
-            when(position){
+            when (position) {
                 0 -> viewModel.setModel(Listing.POST) { adapter.refresh() }
                 1 -> viewModel.setModel(Listing.SUBREDDIT) { adapter.refresh() }
             }
@@ -59,7 +76,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setSource() {
-        binding.toggleOrder.setSelectedTabListener { position ->
+        binding.toggleSource.setSelectedTabListener { position ->
             when (position) {
                 0 -> viewModel.setSource("") { adapter.refresh() }
                 1 -> viewModel.setSource("new") { adapter.refresh() }
@@ -79,13 +96,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
 
     private fun onClick(clickableView: ClickableView, item: Thing) {
-        when(clickableView){
-            UP_VOTE -> viewModel.onClick(item, UP_VOTE.vote)
-            DOWN_VOTE -> viewModel.onClick(item, DOWN_VOTE.vote)
-            SAVE -> TODO()
+        when (clickableView) {
+            UP_VOTE -> Toast.makeText(requireContext(), "voteUp", Toast.LENGTH_SHORT).show()
+            DOWN_VOTE -> Toast.makeText(requireContext(), "voteDown", Toast.LENGTH_SHORT).show()
+            SAVE -> Toast.makeText(requireContext(), "post saved", Toast.LENGTH_SHORT).show()
             PHOTO -> TODO()
-            TITLE -> TODO()
+            POST_TITLE -> TODO()
             COMMENT -> TODO()
+            SUBREDDIT -> {
+                item as Subreddit
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToSingleSubredditFragment(
+                        item.namePrefixed
+                    )
+                )
+            }
+            SUBSCRIBE -> Toast.makeText(requireContext(), "subscribed", Toast.LENGTH_SHORT).show()
         }
     }
 }

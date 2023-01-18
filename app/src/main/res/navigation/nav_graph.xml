@@ -30,7 +30,29 @@
         android:id="@+id/homeFragment"
         android:name="com.example.humblrvsv.presentation.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_singleSubredditFragment"
+            app:destination="@id/singleSubredditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.humblrvsv.presentation.favorites.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.humblrvsv.presentation.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/singleSubredditFragment"
+        android:name="com.example.humblrvsv.presentation.home.singlesubreddit.SingleSubredditFragment"
+        android:label="SingleSubredditFragment" >
+        <argument
+            android:name="subredditName"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>

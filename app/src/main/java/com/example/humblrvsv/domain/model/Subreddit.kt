@@ -1,7 +1,7 @@
 package com.example.humblrvsv.domain.model
 
 data class Subreddit(
-    val namePrefixed: String?,
+    val namePrefixed: String,
     val url: String?,
     val isUserSubscriber: Boolean?,
     val description: String?,

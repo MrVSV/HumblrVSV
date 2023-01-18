@@ -1,10 +1,12 @@
-package com.example.humblrvsv.tools
+package com.example.humblrvsv.domain.tools
 
 enum class ClickableView(val vote: Int = 0) {
     UP_VOTE(vote = 1),
     DOWN_VOTE(vote = -1),
     SAVE,
     PHOTO,
-    TITLE,
-    COMMENT
+    POST_TITLE,
+    COMMENT,
+    SUBREDDIT,
+    SUBSCRIBE
 }

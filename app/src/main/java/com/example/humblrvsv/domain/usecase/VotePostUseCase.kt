@@ -4,10 +4,10 @@ import android.util.Log
 import com.example.humblrvsv.domain.repository.RemoteRepository
 import javax.inject.Inject
 
-class VoteLinkUseCase @Inject constructor(private val remoteRepository: RemoteRepository) {
+class VotePostUseCase @Inject constructor(private val remoteRepository: RemoteRepository) {
 
-    suspend fun voteLink(dir: Int, linkName: String) {
+    suspend fun votePost(dir: Int, postName: String) {
         Log.d("vote", "voteLink: $dir")
-        remoteRepository.voteLink(dir, linkName)
+        remoteRepository.votePost(dir, postName)
     }
 }

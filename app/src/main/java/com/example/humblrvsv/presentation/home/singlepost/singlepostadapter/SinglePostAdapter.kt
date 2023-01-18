@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation.singlepost.singlepostadapter
+package com.example.humblrvsv.presentation.home.singlepost.singlepostadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
 import com.example.humblrvsv.presentation.home.homeadapter.ThingDiff
 import com.example.humblrvsv.presentation.viewholder.CommentViewHolder
 import com.example.humblrvsv.presentation.viewholder.PostTextViewHolder
-import com.example.humblrvsv.tools.ClickableView
+import com.example.humblrvsv.domain.tools.ClickableView
 
 class SinglePostAdapter(
     private val onClick: (ClickableView, Thing) -> Unit

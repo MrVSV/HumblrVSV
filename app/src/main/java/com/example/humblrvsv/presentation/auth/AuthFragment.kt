@@ -19,7 +19,7 @@ import com.example.humblrvsv.TOKEN_SHARED_KEY
 import com.example.humblrvsv.TOKEN_SHARED_NAME
 import com.example.humblrvsv.databinding.FragmentAuthBinding
 import com.example.humblrvsv.presentation.base.BaseFragment
-import com.example.humblrvsv.tools.LoadState
+import com.example.humblrvsv.domain.tools.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

@@ -7,8 +7,8 @@ import com.example.humblrvsv.databinding.ViewHolderPostImageBinding
 import com.example.humblrvsv.domain.model.Post
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.presentation.base.BaseViewHolder
-import com.example.humblrvsv.tools.ClickableView
-import com.example.humblrvsv.tools.loadImage
+import com.example.humblrvsv.domain.tools.ClickableView
+import com.example.humblrvsv.domain.tools.loadImage
 
 class PostImageViewHolder (private val binding: ViewHolderPostImageBinding) :
     BaseViewHolder<Thing>(binding) {
@@ -19,7 +19,7 @@ class PostImageViewHolder (private val binding: ViewHolderPostImageBinding) :
         binding.btnUpVote.setOnClickListener { onClick(ClickableView.UP_VOTE, item) }
         binding.btnDownVote.setOnClickListener { onClick(ClickableView.DOWN_VOTE, item) }
         binding.btnSave.setOnClickListener { onClick(ClickableView.SAVE, item) }
-        binding.postTitle.setOnClickListener { onClick(ClickableView.TITLE, item) }
+        binding.postTitle.setOnClickListener { onClick(ClickableView.POST_TITLE, item) }
         binding.btnComment.setOnClickListener { onClick(ClickableView.COMMENT, item) }
 
         if(item.postHint == "image"){

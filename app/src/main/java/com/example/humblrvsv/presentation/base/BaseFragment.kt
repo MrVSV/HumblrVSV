@@ -27,23 +27,6 @@ abstract class BaseFragment<B:ViewBinding>:Fragment() {
     protected fun createSharedPreference(sharedName: String) =
         requireContext().getSharedPreferences(sharedName, Context.MODE_PRIVATE)
 
-//    protected fun loadStateObserve(
-//        stateFlow: StateFlow<LoadState>,
-//        progressBar: View,
-//        errorView: TextView
-//    ) {
-//
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            stateFlow.collect { state ->
-//                when (state) {
-//                    LoadState.LOADING -> progressBar.isVisible = true
-//                    LoadState.SUCCESS -> progressBar.isVisible = false
-//                    LoadState.ERROR -> errorView.text = getString(R.string.no_connection)
-//                    else->{}
-//                }
-//            }
-//        }
-//    }
 
     override fun onDestroy() {
         super.onDestroy()

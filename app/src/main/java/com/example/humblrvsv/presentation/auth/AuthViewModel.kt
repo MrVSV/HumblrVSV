@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.humblrvsv.data.api.ApiSaved
 import com.example.humblrvsv.data.api.ApiToken
 import com.example.humblrvsv.presentation.base.BaseViewModel
-import com.example.humblrvsv.tools.LoadState
+import com.example.humblrvsv.domain.tools.LoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,16 +19,6 @@ class AuthViewModel @Inject constructor(private val apiToken: ApiToken, private 
     val token = _token.asSharedFlow()
 
     private var accessToken = PLUG
-
-    init {
-        startState()
-    }
-
-    private fun startState() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _loadState.emit(LoadState.START)
-        }
-    }
 
     fun createToken(code: String) {
         if (code != PLUG && accessToken != START_REQUEST)

@@ -2,7 +2,7 @@ package com.example.humblrvsv.data.api.dto.commentdto
 
 
 import com.example.humblrvsv.domain.model.CommentListing
-import com.example.humblrvsv.tools.toListComment
+import com.example.humblrvsv.domain.tools.toListComment
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)

@@ -7,12 +7,23 @@
     android:orientation="vertical"
     tools:context=".presentation.home.HomeFragment">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/search_hint"
+        app:iconifiedByDefault="false"/>
+
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/toggleModel"
         style="@style/RoundedTabLayoutStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView"
         android:layout_marginTop="10dp">
 
         <com.google.android.material.tabs.TabItem
@@ -28,7 +39,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/toggleOrder"
+        android:id="@+id/toggleSource"
         style="@style/RoundedTabLayoutStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +68,7 @@
         app:layout_constrainedHeight="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toggleOrder"
+        app:layout_constraintTop_toBottomOf="@id/toggleSource"
         tools:listitem="@layout/view_holder_subreddit" />
 
     <ProgressBar

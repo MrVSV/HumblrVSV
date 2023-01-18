@@ -5,7 +5,7 @@ import com.example.humblrvsv.databinding.ViewHolderCommentBinding
 import com.example.humblrvsv.domain.model.Comment
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.presentation.base.BaseViewHolder
-import com.example.humblrvsv.tools.ClickableView
+import com.example.humblrvsv.domain.tools.ClickableView
 
 class CommentViewHolder(private val binding: ViewHolderCommentBinding) :
     BaseViewHolder<Thing>(binding) {

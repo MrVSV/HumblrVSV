@@ -20,7 +20,7 @@ class SubredditDto(
         @Json(name = "icon_img")
         val iconImg: String?,
         @Json(name = "display_name_prefixed")
-        val displayNamePrefixed: String?,
+        val displayNamePrefixed: String,
         val subscribers: Int?,
         val name: String,
         @Json(name = "community_icon")

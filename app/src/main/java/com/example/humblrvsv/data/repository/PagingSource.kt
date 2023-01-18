@@ -5,7 +5,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.humblrvsv.tools.Listing
+import com.example.humblrvsv.domain.tools.Listing
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.domain.repository.RemoteRepository
 import javax.inject.Inject
