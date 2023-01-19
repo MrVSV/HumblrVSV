@@ -13,25 +13,25 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.humblrvsv.CALL
-import com.example.humblrvsv.TOKEN_ENABLED_KEY
-import com.example.humblrvsv.TOKEN_SHARED_KEY
-import com.example.humblrvsv.TOKEN_SHARED_NAME
+import com.example.humblrvsv.*
 import com.example.humblrvsv.databinding.FragmentAuthBinding
 import com.example.humblrvsv.presentation.base.BaseFragment
 import com.example.humblrvsv.domain.tools.LoadState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AuthFragment : BaseFragment<FragmentAuthBinding>() {
     override fun initBinding(inflater: LayoutInflater) =
         FragmentAuthBinding.inflate(inflater)
+
     private val viewModel by viewModels<AuthViewModel>()
     private val args by navArgs<AuthFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         startAuth()
         tokenObserve(createSharedPreference(TOKEN_SHARED_NAME))
@@ -40,8 +40,25 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
         Log.e(TAG, "createToken: ${args.code}")
 
         binding.test.setOnClickListener {
+            getUserName(createSharedPreference(SHARED_PROFILE))
+        }
+        binding.button.setOnClickListener {
             findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToHomeFragment())
         }
+    }
+
+    private fun getUserName(preferences: SharedPreferences) {
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            Log.d(TAG, "getUserName: 123")
+            viewModel.userName.collect { profile ->
+                Log.d(TAG, "getUserName: ${profile.name}")
+                preferences.edit().putString(SHARED_PROFILE_USER_NAME, profile.name).apply()
+                Log.d(TAG, "getUserName: ${preferences.getString(SHARED_PROFILE_USER_NAME, "0")}")
+            }
+        }
+
+//        findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToHomeFragment())
     }
 
     private fun startAuth() {

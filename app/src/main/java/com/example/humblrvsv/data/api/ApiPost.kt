@@ -22,8 +22,9 @@ interface ApiPost {
         @Query("id") postName: String
     )
 
-    @GET("/user/CollectionOk2095/saved/")
+    @GET("/user/{user_name}/saved/")
     suspend fun getSaved(
+        @Path("user_name") userName: String?,
         @Query("after") page: String
     ): PostListingDto
 }

@@ -1,6 +1,8 @@
 package com.example.humblrvsv.presentation.home
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -9,6 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.example.humblrvsv.SHARED_SELECTED_TAB_MODEL
+import com.example.humblrvsv.SHARED_SELECTED_TAB_NAME
+import com.example.humblrvsv.SHARED_SELECTED_TAB_SOURCE
 import com.example.humblrvsv.databinding.FragmentHomeBinding
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
@@ -19,7 +24,6 @@ import com.example.humblrvsv.domain.tools.ClickableView.*
 import com.example.humblrvsv.domain.tools.setSelectedTabListener
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -34,10 +38,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val prefs = createSharedPreference(SHARED_SELECTED_TAB_NAME)
+
         settingAdapter()
+        setTabLayout(prefs)
         observePagingData()
-        tableLayoutSelectedListener(binding.toggleModel,false)
-        tableLayoutSelectedListener(binding.toggleSource,true)
+        tabLayoutSelectedListener(binding.toggleModel, false, prefs)
+        tabLayoutSelectedListener(binding.toggleSource, true, prefs)
         loadStateItemsObserve()
     }
 
@@ -54,9 +61,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun tableLayoutSelectedListener(tabLayout: TabLayout, isSource: Boolean) {
-        tabLayout.setSelectedTabListener {position ->
-            viewModel.setQuery(position,isSource)
+    private fun setTabLayout(prefs: SharedPreferences){
+        val modelTabPosition = prefs.getInt(SHARED_SELECTED_TAB_MODEL, 0)
+        val sourceTabPosition = prefs.getInt(SHARED_SELECTED_TAB_SOURCE, 0)
+        binding.toggleModel.selectTab(binding.toggleModel.getTabAt(modelTabPosition))
+        binding.toggleSource.selectTab(binding.toggleSource.getTabAt(sourceTabPosition))
+    }
+
+    private fun tabLayoutSelectedListener(
+        tabLayout: TabLayout,
+        isSource: Boolean,
+        prefs: SharedPreferences
+    ) {
+        tabLayout.setSelectedTabListener { position ->
+            viewModel.setQuery(position, isSource)
+            if (isSource) prefs.edit()
+                .putInt(SHARED_SELECTED_TAB_SOURCE, binding.toggleSource.selectedTabPosition).apply()
+            else prefs.edit()
+                .putInt(SHARED_SELECTED_TAB_MODEL, binding.toggleModel.selectedTabPosition).apply()
         }
     }
 
@@ -68,7 +90,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
     }
-
 
     private fun onClick(clickableView: ClickableView, item: Thing) {
         when (clickableView) {

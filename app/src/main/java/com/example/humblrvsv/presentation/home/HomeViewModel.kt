@@ -1,10 +1,11 @@
 package com.example.humblrvsv.presentation.home
 
-import android.util.Log
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.humblrvsv.domain.model.Thing
+import com.example.humblrvsv.domain.tools.Change
 import com.example.humblrvsv.domain.tools.Listing
+import com.example.humblrvsv.domain.tools.Query
 import com.example.humblrvsv.domain.usecase.GetThingListUseCase
 import com.example.humblrvsv.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,38 +18,30 @@ class HomeViewModel @Inject constructor(
     private val getThingListUseCase: GetThingListUseCase,
 ) : BaseViewModel() {
 
-    private val test = Query()
-    private val _listingFlow = MutableStateFlow(Change(test))
-   fun setQuery(position: Int, isTabSource: Boolean) =
-       if (isTabSource) setSource(position) else setModel(position)
+    private val query = Query()
+    private val _thingFlow = MutableStateFlow(Change(query))
+
+    fun setQuery(position: Int, isTabSource: Boolean) =
+        if (isTabSource) setSource(position) else setModel(position)
 
     private fun setModel(position: Int) {
-        test.listing = if (position == 0) Listing.POST else Listing.SUBREDDIT
-        _listingFlow.value = Change(test)
-        Log.e("Kart","${_listingFlow.value}")
+        query.listing = if (position == 0) Listing.POST else Listing.SUBREDDIT
+        _thingFlow.value = Change(query)
     }
 
     private fun setSource(position: Int) {
-        test.source = if (position == 0) NEW_ else OLD_
-        _listingFlow.value = Change(test)
-
+        query.source = if (position == 0) POPULAR_ else NEW_
+        _thingFlow.value = Change(query)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     var thingList: Flow<PagingData<Thing>> =
-        _listingFlow.asStateFlow().flatMapLatest { query ->
+        _thingFlow.asStateFlow().flatMapLatest { query ->
             getThingListUseCase.getThingList(query.value.listing, query.value.source).flow
         }.cachedIn(CoroutineScope(Dispatchers.IO))
 
     companion object {
         private const val NEW_ = "new"
-        private const val OLD_ = ""
+        private const val POPULAR_ = ""
     }
 }
-
-class Change<T>(val value: T)
-
-data class Query(
-    var listing: Listing = Listing.POST,
-    var source: String = ""
-)

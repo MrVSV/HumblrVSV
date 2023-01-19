@@ -1,7 +1,11 @@
 package com.example.humblrvsv.data.repository
 
+import android.content.ContentValues
+import android.util.Log
 import com.example.humblrvsv.data.api.ApiPost
+import com.example.humblrvsv.data.api.ApiProfile
 import com.example.humblrvsv.data.api.ApiSubreddit
+import com.example.humblrvsv.domain.model.Profile
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.tools.Listing
 import com.example.humblrvsv.domain.model.Thing
@@ -12,7 +16,8 @@ import javax.inject.Inject
 
 class RemoteRepositoryImpl @Inject constructor(
     private val apiSubreddit: ApiSubreddit,
-    private val apiPost: ApiPost
+    private val apiPost: ApiPost,
+    private val apiProfile: ApiProfile
 ) : RemoteRepository {
 
 
@@ -22,7 +27,7 @@ class RemoteRepositoryImpl @Inject constructor(
             Listing.POST -> apiPost.getPostListing(source, page).data.children.toListPost()
             Listing.SUBREDDIT_POST -> apiSubreddit.getSubredditPosts(source, page).data.children.toListPost()
             Listing.SUBSCRIBED_SUBREDDIT -> apiSubreddit.getSubscribed(page).data.children.toListSubreddit()
-            Listing.SAVED_POST -> apiPost.getSaved(page).data.children.toListPost()
+            Listing.SAVED_POST -> apiPost.getSaved(source, page).data.children.toListPost()
         }
     }
 
@@ -30,6 +35,13 @@ class RemoteRepositoryImpl @Inject constructor(
 
     override suspend fun getSubredditInfo(subredditName: String): Subreddit {
        return apiSubreddit.getSubredditInfo(subredditName).toSubreddit()
+    }
+
+    override suspend fun getProfileInfo(): Profile {
+        Log.d(ContentValues.TAG, "getProfileInfo: repo")
+        val a = apiProfile.getProfile().toProfile()
+        Log.d(ContentValues.TAG, "getProfileInfo: repo $a")
+        return a
     }
 
 

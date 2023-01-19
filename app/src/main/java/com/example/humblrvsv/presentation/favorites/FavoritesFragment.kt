@@ -1,6 +1,8 @@
 package com.example.humblrvsv.presentation.favorites
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -8,11 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.example.humblrvsv.*
 import com.example.humblrvsv.databinding.FragmentFavoritesBinding
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.domain.tools.ClickableView
-import com.example.humblrvsv.domain.tools.Listing
 import com.example.humblrvsv.domain.tools.setSelectedTabListener
 import com.example.humblrvsv.presentation.base.BaseFragment
 import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
@@ -33,8 +35,9 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         settingAdapter()
-        observePagingData()
-        setModel()
+        setTabLayout(createSharedPreference(SHARED_SELECTED_TAB_NAME))
+        observePagingData(createSharedPreference(SHARED_PROFILE))
+        setModel(createSharedPreference(SHARED_SELECTED_TAB_NAME))
         loadStateItemsObserve()
     }
 
@@ -43,20 +46,26 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         binding.recycler.itemAnimator?.changeDuration = 0
     }
 
-    private fun observePagingData() {
+    private fun observePagingData(preferences: SharedPreferences) {
+        val source = preferences.getString(SHARED_PROFILE_USER_NAME, "")
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.favoritesList.collect { pagingData ->
+            viewModel.favoritesList(source).collect { pagingData ->
                 adapter.submitData(pagingData)
             }
         }
     }
 
-    private fun setModel() {
+    private fun setTabLayout(prefs: SharedPreferences) {
+        val modelTabPosition = prefs.getInt(SHARED_SELECTED_TAB_SAVED_MODEL, 0)
+        binding.toggleModel.selectTab(binding.toggleModel.getTabAt(modelTabPosition))
+    }
+
+    private fun setModel(prefs: SharedPreferences) {
         binding.toggleModel.setSelectedTabListener { position ->
-            when (position) {
-                0 -> viewModel.setModel(Listing.SAVED_POST) { adapter.refresh() }
-                1 -> viewModel.setModel(Listing.SUBSCRIBED_SUBREDDIT) { adapter.refresh() }
-            }
+            viewModel.setModel(position)
+            prefs.edit()
+                .putInt(SHARED_SELECTED_TAB_SAVED_MODEL, binding.toggleModel.selectedTabPosition)
+                .apply()
         }
     }
 
@@ -73,9 +82,15 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
 
     private fun onClick(clickableView: ClickableView, item: Thing) {
         when (clickableView) {
-            ClickableView.UP_VOTE -> Toast.makeText(requireContext(), "voteUp", Toast.LENGTH_SHORT).show()
-            ClickableView.DOWN_VOTE -> Toast.makeText(requireContext(), "voteDown", Toast.LENGTH_SHORT).show()
-            ClickableView.SAVE -> Toast.makeText(requireContext(), "post saved", Toast.LENGTH_SHORT).show()
+            ClickableView.UP_VOTE -> Toast.makeText(requireContext(), "voteUp", Toast.LENGTH_SHORT)
+                .show()
+            ClickableView.DOWN_VOTE -> Toast.makeText(
+                requireContext(),
+                "voteDown",
+                Toast.LENGTH_SHORT
+            ).show()
+            ClickableView.SAVE -> Toast.makeText(requireContext(), "post saved", Toast.LENGTH_SHORT)
+                .show()
             ClickableView.PHOTO -> TODO()
             ClickableView.POST_TITLE -> TODO()
             ClickableView.COMMENT -> TODO()
@@ -87,8 +102,16 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
                     )
                 )
             }
-            ClickableView.SUBSCRIBE -> Toast.makeText(requireContext(), "subscribed", Toast.LENGTH_SHORT).show()
+            ClickableView.SUBSCRIBE -> Toast.makeText(
+                requireContext(),
+                "subscribed",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
+    override fun onDestroy() {
+        Log.d("onDestroy", "favorites")
+        super.onDestroy()
+    }
 }

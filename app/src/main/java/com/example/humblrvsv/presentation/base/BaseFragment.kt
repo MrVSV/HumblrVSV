@@ -25,7 +25,7 @@ abstract class BaseFragment<B:ViewBinding>:Fragment() {
     }
 
     protected fun createSharedPreference(sharedName: String) =
-        requireContext().getSharedPreferences(sharedName, Context.MODE_PRIVATE)
+        requireContext().getSharedPreferences(sharedName, Context.MODE_PRIVATE)!!
 
 
     override fun onDestroy() {
