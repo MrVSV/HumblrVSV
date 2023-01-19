@@ -13,7 +13,7 @@ import com.example.humblrvsv.databinding.FragmentSingleSubredditBinding
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.domain.tools.ClickableView
 import com.example.humblrvsv.presentation.base.BaseFragment
-import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
+import com.example.humblrvsv.presentation.adapter.ThingPagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +23,7 @@ class SingleSubredditFragment : BaseFragment<FragmentSingleSubredditBinding>() {
 
     private val viewModel by viewModels<SingleSubredditViewModel>()
     private val adapter by lazy {
-        HomePagingAdapter { clickableView, item -> onClick(clickableView, item) }
+        ThingPagingAdapter { clickableView, item -> onClick(clickableView, item) }
     }
     private val args by navArgs<SingleSubredditFragmentArgs>()
 

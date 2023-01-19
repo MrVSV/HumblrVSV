@@ -2,7 +2,6 @@ package com.example.humblrvsv.presentation.home
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -18,7 +17,7 @@ import com.example.humblrvsv.databinding.FragmentHomeBinding
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.presentation.base.BaseFragment
-import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
+import com.example.humblrvsv.presentation.adapter.ThingPagingAdapter
 import com.example.humblrvsv.domain.tools.ClickableView
 import com.example.humblrvsv.domain.tools.ClickableView.*
 import com.example.humblrvsv.domain.tools.setSelectedTabListener
@@ -32,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel by viewModels<HomeViewModel>()
     private val adapter by lazy {
-        HomePagingAdapter { clickableView, item -> onClick(clickableView, item) }
+        ThingPagingAdapter { clickableView, item -> onClick(clickableView, item) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

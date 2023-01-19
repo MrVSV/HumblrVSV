@@ -18,6 +18,7 @@ import com.example.humblrvsv.databinding.FragmentAuthBinding
 import com.example.humblrvsv.presentation.base.BaseFragment
 import com.example.humblrvsv.domain.tools.LoadState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -32,33 +33,19 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         startAuth()
         tokenObserve(createSharedPreference(TOKEN_SHARED_NAME))
         loadingObserve(createSharedPreference(TOKEN_SHARED_NAME))
         viewModel.createToken(args.code)
         Log.e(TAG, "createToken: ${args.code}")
 
-        binding.test.setOnClickListener {
-            getUserName(createSharedPreference(SHARED_PROFILE))
-        }
-        binding.button.setOnClickListener {
-            findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToHomeFragment())
-        }
     }
 
     private fun getUserName(preferences: SharedPreferences) {
-
         viewLifecycleOwner.lifecycleScope.launch {
-            Log.d(TAG, "getUserName: 123")
-            viewModel.userName.collect { profile ->
-                Log.d(TAG, "getUserName: ${profile.name}")
-                preferences.edit().putString(SHARED_PROFILE_USER_NAME, profile.name).apply()
-                Log.d(TAG, "getUserName: ${preferences.getString(SHARED_PROFILE_USER_NAME, "0")}")
-            }
+            val userName = viewModel.getProfileInfo().name
+            preferences.edit().putString(SHARED_PROFILE_USER_NAME, userName).apply()
         }
-
-//        findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToHomeFragment())
     }
 
     private fun startAuth() {
@@ -89,32 +76,30 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
                         setLoadState(
                             buttonIsEnabled = true,
                             textIsVisible = false,
-                            progressIsVisible = false,
-                            testIsVisible = false
+                            progressIsVisible = false
                         )
                     LoadState.LOADING ->
                         setLoadState(
                             buttonIsEnabled = false,
                             textIsVisible = false,
-                            progressIsVisible = true,
-                            testIsVisible = false
+                            progressIsVisible = true
                         )
                     LoadState.SUCCESS -> {
                         setLoadState(
                             buttonIsEnabled = false,
                             textIsVisible = true,
-                            progressIsVisible = false,
-                            testIsVisible = true
+                            progressIsVisible = false
                         )
 
-//                        findNavController().navigate(R.id.action_authFragment_to_navigation_photos)
+//                        getUserName(createSharedPreference(SHARED_PROFILE))
+//                        delay(1000)
+                        findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToHomeFragment())
                     }
                     LoadState.ERROR -> {
                         setLoadState(
                             buttonIsEnabled = true,
                             textIsVisible = true,
-                            progressIsVisible = false,
-                            testIsVisible = false
+                            progressIsVisible = false
                         )
                         Log.e(TAG, "loadingObserve: ${loadState.message}")
                         binding.text.text = loadState.message
@@ -128,11 +113,9 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
         buttonIsEnabled: Boolean,
         textIsVisible: Boolean,
         progressIsVisible: Boolean,
-        testIsVisible: Boolean,
     ) {
         binding.btnAuth.isEnabled = buttonIsEnabled
         binding.text.isVisible = textIsVisible
         binding.progressBar.isVisible = progressIsVisible
-        binding.test.isVisible = testIsVisible
     }
 }

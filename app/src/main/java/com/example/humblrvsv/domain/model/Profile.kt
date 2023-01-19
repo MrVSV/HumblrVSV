@@ -9,7 +9,7 @@ data class Profile(
     val friendsCount: Int,
     val id: String,
 //    val awarderKarma: Int,
-//    val avatarSmall: String,
+    val avatarSmall: String,
 //    val awardeeKarma: Int,
 //    val linkKarma: Int,
     val totalKarma: Int,

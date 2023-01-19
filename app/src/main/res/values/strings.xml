@@ -11,5 +11,16 @@
     <string name="title_home">home</string>
     <string name="title_favourites">favorites</string>
     <string name="title_profile">profile</string>
-    <string name="search_hint">search for...</string>
+    <string name="search_hint">search for…</string>
+    <string name="no_connection">Check the network connection</string>
+    <string name="login_via_reddit">Login</string>
+    <string name="skip">Skip</string>
+    <string name="ready">Ready</string>
+    <string name="successful_authorization">Successful login</string>
+    <string name="list_of_friends">List of Friends</string>
+    <string name="clear_saved">Clear Saved</string>
+    <string name="logout">Logout</string>
+    <string name="karma">Karma: %1$d</string>
+    <string name="user_id">Id: %1$s</string>
+    <string name="followers">Followers: %1$d</string>
 </resources>

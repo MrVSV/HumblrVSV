@@ -37,12 +37,6 @@ class RemoteRepositoryImpl @Inject constructor(
        return apiSubreddit.getSubredditInfo(subredditName).toSubreddit()
     }
 
-    override suspend fun getProfileInfo(): Profile {
-        Log.d(ContentValues.TAG, "getProfileInfo: repo")
-        val a = apiProfile.getProfile().toProfile()
-        Log.d(ContentValues.TAG, "getProfileInfo: repo $a")
-        return a
-    }
-
+    override suspend fun getProfileInfo(): Profile = apiProfile.getProfile().toProfile()
 
 }

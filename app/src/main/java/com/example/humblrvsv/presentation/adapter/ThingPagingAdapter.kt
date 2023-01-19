@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation.home.homeadapter
+package com.example.humblrvsv.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import com.example.humblrvsv.presentation.viewholder.PostTextViewHolder
 import com.example.humblrvsv.presentation.viewholder.SubredditViewHolder
 import com.example.humblrvsv.domain.tools.ClickableView
 
-class HomePagingAdapter(
+class ThingPagingAdapter(
     private val onClick: (ClickableView, Thing) -> Unit,
 ) : PagingDataAdapter<Thing, BaseViewHolder<Thing>>(ThingDiff()) {
 

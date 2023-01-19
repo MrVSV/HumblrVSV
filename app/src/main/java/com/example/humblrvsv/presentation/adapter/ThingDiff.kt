@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation.home.homeadapter
+package com.example.humblrvsv.presentation.adapter
 
 
 import androidx.recyclerview.widget.DiffUtil

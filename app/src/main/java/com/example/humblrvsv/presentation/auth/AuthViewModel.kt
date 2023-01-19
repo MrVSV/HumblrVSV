@@ -25,8 +25,8 @@ class AuthViewModel @Inject constructor(
     private val _token = MutableSharedFlow<String>()
     val token = _token.asSharedFlow()
 
-    private val _userName = MutableSharedFlow<Profile>()
-    val userName = _userName.asSharedFlow()
+//    private val _userName = MutableSharedFlow<Profile>()
+//    val userName = _userName.asSharedFlow()
 
     private var accessToken = PLUG
 
@@ -51,11 +51,6 @@ class AuthViewModel @Inject constructor(
         const val START_REQUEST = "start_request"
     }
 
-    suspend fun getProfileInfo(): Profile {
-        Log.d(TAG, "getProfileInfo: ")
-        val a = getProfileInfoUseCase.getProfileInfo()
-        Log.d(TAG, "getProfileInfo: $a")
-        return a
-    }
+    suspend fun getProfileInfo(): Profile = getProfileInfoUseCase.getProfileInfo()
 
 }

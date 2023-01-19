@@ -1,22 +1,19 @@
-package com.example.humblrvsv.presentation.home.singlepost.singlepostadapter
+package com.example.humblrvsv.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.humblrvsv.databinding.ViewHolderCommentBinding
 import com.example.humblrvsv.databinding.ViewHolderPostTextBinding
 import com.example.humblrvsv.domain.model.Post
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.presentation.base.BaseViewHolder
-import com.example.humblrvsv.presentation.home.homeadapter.HomePagingAdapter
-import com.example.humblrvsv.presentation.home.homeadapter.ThingDiff
 import com.example.humblrvsv.presentation.viewholder.CommentViewHolder
 import com.example.humblrvsv.presentation.viewholder.PostTextViewHolder
 import com.example.humblrvsv.domain.tools.ClickableView
 
-class SinglePostAdapter(
+class ThingListAdapter(
     private val onClick: (ClickableView, Thing) -> Unit
 ) : ListAdapter<Thing, BaseViewHolder<Thing>>(ThingDiff()) {
 
@@ -48,8 +45,8 @@ class SinglePostAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is Subreddit -> HomePagingAdapter.SUBREDDIT
-            is Post -> HomePagingAdapter.POST_TEXT
+            is Subreddit -> ThingPagingAdapter.SUBREDDIT
+            is Post -> ThingPagingAdapter.POST_TEXT
 //            is LinkImage -> LINK_IMAGE
             else -> throw java.lang.IllegalStateException("123")
         }

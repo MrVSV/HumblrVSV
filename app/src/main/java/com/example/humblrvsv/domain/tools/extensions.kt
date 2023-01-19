@@ -7,12 +7,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.humblrvsv.R
 import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
 import com.example.humblrvsv.data.api.dto.commentdto.CommentListingDto
+import com.example.humblrvsv.data.api.dto.friends.FriendDto
 import com.example.humblrvsv.data.api.dto.linkdto.PostDto
 import com.example.humblrvsv.data.api.dto.subredditdto.SubredditDto
-import com.example.humblrvsv.domain.model.Comment
-import com.example.humblrvsv.domain.model.CommentListing
-import com.example.humblrvsv.domain.model.Post
-import com.example.humblrvsv.domain.model.Subreddit
+import com.example.humblrvsv.domain.model.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
@@ -22,21 +20,14 @@ fun List<CommentListingDto>.toListCommentListing(): List<CommentListing> =
 fun List<CommentDto>.toListComment(): List<Comment> =
     this.map { item -> item.toComment() }
 
-fun List<SubredditDto>.toListSubreddit(): List<Subreddit> {
-    val newList = mutableListOf<Subreddit>()
-    this.forEach { item ->
-        newList.add(item.toSubreddit())
-    }
-    return newList
-}
+fun List<SubredditDto>.toListSubreddit(): List<Subreddit> =
+    this.map { item -> item.toSubreddit() }
 
-fun List<PostDto>.toListPost(): List<Post> {
-    val newList = mutableListOf<Post>()
-    this.forEach { item ->
-        newList.add(item.toPost())
-    }
-    return newList
-}
+fun List<FriendDto>.toListFriend(): List<Friend> =
+    this.map { item -> item.toFriend() }
+
+fun List<PostDto>.toListPost(): List<Post> =
+    this.map { item -> item.toPost() }
 
 fun TabLayout.setSelectedTabListener(block: (position: Int) -> Unit){
     this.addOnTabSelectedListener(object : OnTabSelectedListener{

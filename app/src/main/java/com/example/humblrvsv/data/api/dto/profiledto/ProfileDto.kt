@@ -54,6 +54,7 @@ data class ProfileDto(
         title = additionalInfo.title,
         subscribers = additionalInfo.subscribers,
         displayNamePrefixed = additionalInfo.displayNamePrefixed,
-        url = additionalInfo.url
+        url = additionalInfo.url,
+        avatarSmall = iconImg
     )
 }
