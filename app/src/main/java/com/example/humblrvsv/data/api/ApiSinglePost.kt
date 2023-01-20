@@ -1,5 +1,6 @@
 package com.example.humblrvsv.data.api
 
+import com.example.humblrvsv.data.api.dto.SinglePostListingDto
 import retrofit2.http.GET
 
 
@@ -10,5 +11,5 @@ interface ApiSinglePost{
 //        @Path("user_name") userName: String?,
 //        @Query("after") page: String,
 //        @Query("type") type: String = "links"
-    ): String
+    ): List<SinglePostListingDto>
 }

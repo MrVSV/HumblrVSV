@@ -2,7 +2,6 @@ package com.example.humblrvsv.di
 
 import android.content.Context
 import com.example.humblrvsv.data.api.*
-import com.example.humblrvsv.data.api.dto.SinglePostListingDto
 import com.example.humblrvsv.data.api.dto.ThingDto
 import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
 import com.example.humblrvsv.data.api.dto.linkdto.PostDto
@@ -12,6 +11,7 @@ import com.example.humblrvsv.data.api.interceptor.AuthTokenProvider
 import com.example.humblrvsv.data.api.interceptor.LoggingInterceptorQualifier
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +22,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -70,24 +71,19 @@ class ApiModule {
     @Provides
     @Singleton
     @Named("Converted")
-    suspend fun provideRetrofitConverted(
-        okhttpClient: OkHttpClient,
-        apiSinglePost: ApiSinglePost
-    ): Retrofit {
-        val response = apiSinglePost.getSinglePost()
-        val correctResponse = response.replace("\"replies\": \"\"","\"replies\": null")
+    fun provideRetrofitConverted(okhttpClient: OkHttpClient): Retrofit {
         val moshiBuilder = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
             .add(RepliesAdapter())
-            .addLast(
+            .add(
                 PolymorphicJsonAdapterFactory.of(ThingDto::class.java, "kind")
                     .withSubtype(PostDto::class.java, "t3")
                     .withSubtype(CommentDto::class.java, "t1")
             )
             .build()
-        val adapter = moshiBuilder.adapter(SinglePostListingDto::class.java)
-        val finalResponse = adapter.fromJson(correctResponse)
         return Retrofit.Builder()
             .baseUrl("https://oauth.reddit.com/")
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create(moshiBuilder))
             .client(okhttpClient)
             .build()
