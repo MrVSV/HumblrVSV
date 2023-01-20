@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">HumblrVSV</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string-array name="onboarding_texts_array">
-        <item>Make photo, publish, gather an audience, get feedback!</item>
-        <item>Share with friends, make collections</item>
-        <item>Upload your favorite pictures and track statistics</item>
+    <string-array name="onboarding_texts_array1">
+        <item>Welcome to Humblr</item>
+        <item>SubHumblr</item>
+        <item>Sare and save</item>
+    </string-array>
+    <string-array name="onboarding_texts_array2">
+        <item>Communities of all kinds of interests are gathered here</item>
+        <item>You can find new subs by interests and see the subs you are subscribed to</item>
+        <item>The favorites tab stores bookmarks with comments and subs. You will find information about yourself in the profile</item>
     </string-array>
     <string name="separator_text">-</string>
     <string name="some_text">очень длинное описание сабреддита оырвалоывлаофывифывифив ываллоываыв ываыва ывафыва ывафыва фываф фывафыва ыфвафыв фывафывафвымыва ывывапывап</string>

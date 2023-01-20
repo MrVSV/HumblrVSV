@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/authFragment">
+    app:startDestination="@id/onBoardingFragment">
 
 
     <fragment
@@ -27,7 +27,11 @@
         android:id="@+id/onBoardingFragment"
         android:name="com.example.humblrvsv.presentation.onboarding.OnBoardingFragment"
         android:label="fragment_on_boarding"
-        tools:layout="@layout/fragment_on_boarding" />
+        tools:layout="@layout/fragment_on_boarding" >
+        <action
+            android:id="@+id/action_onBoardingFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.humblrvsv.presentation.home.HomeFragment"
@@ -57,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/singleSubredditFragment"
-        android:name="com.example.humblrvsv.presentation.home.singlesubreddit.SingleSubredditFragment"
+        android:name="com.example.humblrvsv.presentation.singlesubreddit.SingleSubredditFragment"
         android:label="SingleSubredditFragment" >
         <argument
             android:name="subredditName"
@@ -65,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/friendsFragment"
-        android:name="com.example.humblrvsv.presentation.profile.friends.FriendsFragment"
+        android:name="com.example.humblrvsv.presentation.friends.FriendsFragment"
         android:label="fragment_friends"
         tools:layout="@layout/fragment_friends" />
 

@@ -2,7 +2,8 @@
 <FrameLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:id="@+id/friendFrame"
@@ -30,13 +31,14 @@
 
         <TextView
             android:id="@+id/friendName"
-            android:layout_width="115dp"
-            android:layout_height="@dimen/header_padding"
+            android:text="Beginning_Android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/profile_margin_top"
             android:background="@drawable/round_corners_20alfa_btn"
             android:textAlignment="center"
-            android:textSize="@dimen/medium_font_size"
-            android:text="@{name}"
+            android:textSize="15sp"
+            android:layout_marginHorizontal="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/friendPhoto" />
@@ -44,7 +46,7 @@
         <TextView
             android:id="@+id/friendId"
             android:layout_width="90dp"
-            android:layout_height="@dimen/profile_margin_top"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/profile_margin_top"
             android:background="@drawable/round_corners_20alfa_btn"
             android:text="@string/user_id"
