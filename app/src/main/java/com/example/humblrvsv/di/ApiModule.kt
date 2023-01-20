@@ -2,6 +2,7 @@ package com.example.humblrvsv.di
 
 import android.content.Context
 import com.example.humblrvsv.data.api.*
+import com.example.humblrvsv.data.api.dto.More
 import com.example.humblrvsv.data.api.dto.ThingDto
 import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
 import com.example.humblrvsv.data.api.dto.linkdto.PostDto
@@ -72,19 +73,20 @@ class ApiModule {
     @Singleton
     @Named("Converted")
     fun provideRetrofitConverted(okhttpClient: OkHttpClient): Retrofit {
-        val moshiBuilder = Moshi.Builder()
+        val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .add(RepliesAdapter())
             .add(
                 PolymorphicJsonAdapterFactory.of(ThingDto::class.java, "kind")
                     .withSubtype(PostDto::class.java, "t3")
                     .withSubtype(CommentDto::class.java, "t1")
+                    .withSubtype(More::class.java, "more")
             )
             .build()
         return Retrofit.Builder()
             .baseUrl("https://oauth.reddit.com/")
             .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(MoshiConverterFactory.create(moshiBuilder))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okhttpClient)
             .build()
     }
