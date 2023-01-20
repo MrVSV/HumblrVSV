@@ -1,14 +1,17 @@
 package com.example.humblrvsv.di
 
 import android.content.Context
-import com.example.humblrvsv.data.api.ApiPost
-import com.example.humblrvsv.data.api.ApiSubreddit
-import com.example.humblrvsv.data.api.ApiProfile
-import com.example.humblrvsv.data.api.ApiToken
+import com.example.humblrvsv.data.api.*
+import com.example.humblrvsv.data.api.dto.SinglePostListingDto
+import com.example.humblrvsv.data.api.dto.ThingDto
+import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
+import com.example.humblrvsv.data.api.dto.linkdto.PostDto
 import com.example.humblrvsv.data.api.interceptor.AuthTokenInterceptor
 import com.example.humblrvsv.data.api.interceptor.AuthTokenInterceptorQualifier
 import com.example.humblrvsv.data.api.interceptor.AuthTokenProvider
 import com.example.humblrvsv.data.api.interceptor.LoggingInterceptorQualifier
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +22,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -27,11 +31,13 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideAuthTokenProvider(@ApplicationContext context: Context): AuthTokenProvider = AuthTokenProvider(context)
+    fun provideAuthTokenProvider(@ApplicationContext context: Context): AuthTokenProvider =
+        AuthTokenProvider(context)
 
     @Provides
     @AuthTokenInterceptorQualifier
-    fun provideAuthTokenInterceptor(tokenProvider: AuthTokenProvider): Interceptor = AuthTokenInterceptor(tokenProvider)
+    fun provideAuthTokenInterceptor(tokenProvider: AuthTokenProvider): Interceptor =
+        AuthTokenInterceptor(tokenProvider)
 
     @Provides
     @LoggingInterceptorQualifier
@@ -52,26 +58,64 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okhttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl("https://oauth.reddit.com/")
-        .addConverterFactory(MoshiConverterFactory.create())
-        .client(okhttpClient)
-        .build()
+    @Named("Normal")
+    fun provideRetrofit(okhttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://oauth.reddit.com/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .client(okhttpClient)
+            .build()
+    }
 
     @Provides
     @Singleton
-    fun provideApiToken(retrofit: Retrofit): ApiToken = retrofit.create(ApiToken::class.java)
+    @Named("Converted")
+    suspend fun provideRetrofitConverted(
+        okhttpClient: OkHttpClient,
+        apiSinglePost: ApiSinglePost
+    ): Retrofit {
+        val response = apiSinglePost.getSinglePost()
+        val correctResponse = response.replace("\"replies\": \"\"","\"replies\": null")
+        val moshiBuilder = Moshi.Builder()
+            .add(RepliesAdapter())
+            .addLast(
+                PolymorphicJsonAdapterFactory.of(ThingDto::class.java, "kind")
+                    .withSubtype(PostDto::class.java, "t3")
+                    .withSubtype(CommentDto::class.java, "t1")
+            )
+            .build()
+        val adapter = moshiBuilder.adapter(SinglePostListingDto::class.java)
+        val finalResponse = adapter.fromJson(correctResponse)
+        return Retrofit.Builder()
+            .baseUrl("https://oauth.reddit.com/")
+            .addConverterFactory(MoshiConverterFactory.create(moshiBuilder))
+            .client(okhttpClient)
+            .build()
+    }
 
     @Provides
     @Singleton
-    fun provideApiProfile(retrofit: Retrofit): ApiProfile = retrofit.create(ApiProfile::class.java)
+    fun provideApiToken(@Named("Normal") retrofit: Retrofit): ApiToken =
+        retrofit.create(ApiToken::class.java)
 
     @Provides
     @Singleton
-    fun provideApiSubreddit(retrofit: Retrofit): ApiSubreddit = retrofit.create(ApiSubreddit::class.java)
+    fun provideApiProfile(@Named("Normal") retrofit: Retrofit): ApiProfile =
+        retrofit.create(ApiProfile::class.java)
 
     @Provides
     @Singleton
-    fun provideApiPost(retrofit: Retrofit): ApiPost = retrofit.create(ApiPost::class.java)
+    fun provideApiSubreddit(@Named("Normal") retrofit: Retrofit): ApiSubreddit =
+        retrofit.create(ApiSubreddit::class.java)
+
+    @Provides
+    @Singleton
+    fun provideApiPost(@Named("Normal") retrofit: Retrofit): ApiPost =
+        retrofit.create(ApiPost::class.java)
+
+    @Provides
+    @Singleton
+    fun provideApiSinglePost(@Named("Converted") retrofit: Retrofit): ApiSinglePost =
+        retrofit.create(ApiSinglePost::class.java)
 
 }
