@@ -106,6 +106,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 )
             }
             SUBSCRIBE -> Toast.makeText(requireContext(), "subscribed", Toast.LENGTH_SHORT).show()
+            FRIEND -> TODO()
         }
     }
 }

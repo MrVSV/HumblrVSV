@@ -1,16 +1,14 @@
 package com.example.humblrvsv.presentation.onboarding
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.humblrvsv.databinding.ItemViewpagerBinding
 
 class ViewPagerAdapter(
-    private val onBoardingImages: List<Int>,
-//    val onBoardingTitles: Array<String>,
-//    val onBoardingTexts: Array<String>,
+    private val allOnboardingHeaders: Array<String>,
+    private val allOnboardingTexts: Array<String>,
+    private val allOnboardingImages: Array<Int>
 ) : RecyclerView.Adapter<ViewPagerHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerHolder {
@@ -21,11 +19,12 @@ class ViewPagerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewPagerHolder, position: Int) {
-        val image = onBoardingImages[position]
-        holder.bind().setImageResource(image)
+        holder.bind(
+            allOnboardingHeaders[position],
+            allOnboardingTexts[position],
+            allOnboardingImages[position]
+        )
     }
 
-    override fun getItemCount(): Int {
-        return onBoardingImages.size
-    }
+    override fun getItemCount(): Int = allOnboardingImages.size
 }

@@ -7,8 +7,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class CommentListingDto(
-    val kind: String,
-    val data: CommentListingDataDto
+   val kind: String,
+   val data: CommentListingDataDto
 ){
     @JsonClass(generateAdapter = true)
     data class CommentListingDataDto(

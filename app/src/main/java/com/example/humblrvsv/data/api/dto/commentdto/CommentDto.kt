@@ -1,22 +1,22 @@
 package com.example.humblrvsv.data.api.dto.commentdto
 
 
+import com.example.humblrvsv.data.api.dto.ThingDto
 import com.example.humblrvsv.domain.model.Comment
-import com.example.humblrvsv.domain.tools.toListCommentListing
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class CommentDto(
-    val kind: String,
+   override val kind: String,
     val data: CommentDataDto
-) {
+): ThingDto {
     @JsonClass(generateAdapter = true)
     data class CommentDataDto(
         @Json(name = "subreddit_id")
         val subredditId: String?,
         val likes: Boolean?,
-        val replies: List<CommentListingDto>,
+        val replies: CommentListingDto?,
         val saved: Boolean?,
         val id: String,
         val author: String?,
@@ -43,7 +43,7 @@ data class CommentDto(
         id = data.id,
         name = data.name,
         likedByUser = data.likes,
-        replies = data.replies.toListCommentListing(),
+        replies = data.replies?.toCommentListing(),
         author = data.author,
         score = data.score,
         body = data.body,

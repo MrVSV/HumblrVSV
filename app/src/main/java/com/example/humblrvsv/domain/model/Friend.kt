@@ -1,6 +1,6 @@
 package com.example.humblrvsv.domain.model
 
 data class Friend(
-    val name: String,
-    val id: String
-)
+    override val name: String,
+    override val id: String,
+) : Thing

@@ -1,13 +1,10 @@
 package com.example.humblrvsv.domain.model
 
-import com.example.humblrvsv.data.api.dto.commentdto.CommentListingDto
-import com.squareup.moshi.Json
-
 data class Comment(
     override val id: String,
     override val name: String,
     val likedByUser: Boolean?,
-    val replies: List<CommentListing>,
+    val replies: CommentListing?,
 //    val saved: Boolean?,
     val author: String?,
 //    val parentId: String,

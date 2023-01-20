@@ -1,4 +1,4 @@
-package com.example.humblrvsv.presentation.home.singlesubreddit
+package com.example.humblrvsv.presentation.singlesubreddit
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -91,7 +91,7 @@ class SingleSubredditFragment : BaseFragment<FragmentSingleSubredditBinding>() {
                         binding.info.isVisible = false
                         binding.progressBarTop.isVisible = false
                     }
-                    com.example.humblrvsv.domain.tools.LoadState.LOADING -> {
+                    com.example.humblrvsv.domain.tools.LoadState.LOADING_STAGE_1 -> {
                         binding.info.isVisible = false
                         binding.progressBarTop.isVisible = true
                     }
@@ -104,6 +104,7 @@ class SingleSubredditFragment : BaseFragment<FragmentSingleSubredditBinding>() {
                         binding.info.isVisible = true
                         binding.progressBarTop.isVisible = false
                     }
+                    com.example.humblrvsv.domain.tools.LoadState.LOADING_STAGE_2 -> {}
                 }
             }
         }

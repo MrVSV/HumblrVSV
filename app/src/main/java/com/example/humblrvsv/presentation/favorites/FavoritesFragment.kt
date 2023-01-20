@@ -107,6 +107,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
                 "subscribed",
                 Toast.LENGTH_SHORT
             ).show()
+            ClickableView.FRIEND -> TODO()
         }
     }
 

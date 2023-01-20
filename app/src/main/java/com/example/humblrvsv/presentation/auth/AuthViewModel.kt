@@ -1,11 +1,7 @@
 package com.example.humblrvsv.presentation.auth
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.example.humblrvsv.data.api.ApiProfile
 import com.example.humblrvsv.data.api.ApiToken
-import com.example.humblrvsv.data.api.dto.profiledto.ProfileDto
 import com.example.humblrvsv.domain.model.Profile
 import com.example.humblrvsv.presentation.base.BaseViewModel
 import com.example.humblrvsv.domain.tools.LoadState
@@ -25,15 +21,15 @@ class AuthViewModel @Inject constructor(
     private val _token = MutableSharedFlow<String>()
     val token = _token.asSharedFlow()
 
-//    private val _userName = MutableSharedFlow<Profile>()
-//    val userName = _userName.asSharedFlow()
+    private val _profileInfo = MutableSharedFlow<Profile>()
+    val profileInfo = _profileInfo.asSharedFlow()
 
     private var accessToken = PLUG
 
     fun createToken(code: String) {
         if (code != PLUG && accessToken != START_REQUEST)
             viewModelScope.launch(Dispatchers.IO) {
-                _loadState.emit(LoadState.LOADING)
+                _loadState.emit(LoadState.LOADING_STAGE_1)
                 accessToken = START_REQUEST
                 accessToken = try {
                     apiToken.getToken(code = code).accessToken
@@ -42,6 +38,8 @@ class AuthViewModel @Inject constructor(
                     PLUG
                 }
                 _token.emit(accessToken)
+                _loadState.emit(LoadState.LOADING_STAGE_2)
+                _profileInfo.emit(getProfileInfo())
                 _loadState.emit(LoadState.SUCCESS)
             }
     }
@@ -51,6 +49,6 @@ class AuthViewModel @Inject constructor(
         const val START_REQUEST = "start_request"
     }
 
-    suspend fun getProfileInfo(): Profile = getProfileInfoUseCase.getProfileInfo()
+    private suspend fun getProfileInfo(): Profile = getProfileInfoUseCase.getProfileInfo()
 
 }

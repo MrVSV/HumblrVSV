@@ -1,8 +1,6 @@
-package com.example.humblrvsv.presentation.home.singlesubreddit
+package com.example.humblrvsv.presentation.singlesubreddit
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.navArgument
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.tools.Listing
 import com.example.humblrvsv.domain.tools.LoadState
@@ -12,7 +10,6 @@ import com.example.humblrvsv.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,7 +28,7 @@ class SingleSubredditViewModel @Inject constructor(
 
     fun getSubredditInfo(subredditName: String){
         viewModelScope.launch(Dispatchers.IO + handler) {
-            _loadState.emit(LoadState.LOADING)
+            _loadState.emit(LoadState.LOADING_STAGE_1)
             _subredditInfo.emit(getSubredditInfoUseCase.getSubredditInfo(subredditName))
             _loadState.emit(LoadState.SUCCESS)
         }

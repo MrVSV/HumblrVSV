@@ -1,15 +1,16 @@
 package com.example.humblrvsv.data.api.dto.linkdto
 
 import com.example.humblrvsv.data.api.dto.Media
+import com.example.humblrvsv.data.api.dto.ThingDto
 import com.example.humblrvsv.domain.model.Post
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class PostDto(
-    val kind: String,
+    override val kind: String,
     val data: PostDataDto,
-) {
+):ThingDto {
     @JsonClass(generateAdapter = true)
     data class PostDataDto(
         val subreddit: String,

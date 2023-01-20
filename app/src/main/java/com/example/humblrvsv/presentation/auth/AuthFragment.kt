@@ -15,11 +15,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.humblrvsv.*
 import com.example.humblrvsv.databinding.FragmentAuthBinding
-import com.example.humblrvsv.presentation.base.BaseFragment
 import com.example.humblrvsv.domain.tools.LoadState
+import com.example.humblrvsv.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -37,14 +35,17 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
         tokenObserve(createSharedPreference(TOKEN_SHARED_NAME))
         loadingObserve(createSharedPreference(TOKEN_SHARED_NAME))
         viewModel.createToken(args.code)
+        getUserName(createSharedPreference(SHARED_PROFILE))
         Log.e(TAG, "createToken: ${args.code}")
 
     }
 
     private fun getUserName(preferences: SharedPreferences) {
         viewLifecycleOwner.lifecycleScope.launch {
-            val userName = viewModel.getProfileInfo().name
-            preferences.edit().putString(SHARED_PROFILE_USER_NAME, userName).apply()
+            viewModel.profileInfo.collect {info ->
+                val userName = info.name
+                preferences.edit().putString(SHARED_PROFILE_USER_NAME, userName).apply()
+            }
         }
     }
 
@@ -78,7 +79,13 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
                             textIsVisible = false,
                             progressIsVisible = false
                         )
-                    LoadState.LOADING ->
+                    LoadState.LOADING_STAGE_1 ->
+                        setLoadState(
+                            buttonIsEnabled = false,
+                            textIsVisible = false,
+                            progressIsVisible = true
+                        )
+                    LoadState.LOADING_STAGE_2 ->
                         setLoadState(
                             buttonIsEnabled = false,
                             textIsVisible = false,
@@ -90,20 +97,18 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
                             textIsVisible = true,
                             progressIsVisible = false
                         )
-
-//                        getUserName(createSharedPreference(SHARED_PROFILE))
-//                        delay(1000)
                         findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToHomeFragment())
                     }
                     LoadState.ERROR -> {
                         setLoadState(
-                            buttonIsEnabled = true,
-                            textIsVisible = true,
+                            buttonIsEnabled = false,
+                            textIsVisible = false,
                             progressIsVisible = false
                         )
                         Log.e(TAG, "loadingObserve: ${loadState.message}")
                         binding.text.text = loadState.message
                     }
+
                 }
             }
         }

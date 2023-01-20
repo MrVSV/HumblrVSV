@@ -56,6 +56,6 @@ class ThingPagingAdapter(
     companion object {
         const val SUBREDDIT: Int = R.layout.view_holder_subreddit
         const val POST_TEXT: Int = R.layout.view_holder_post_text
-        const val LINK_IMAGE: Int = 3
+//        const val LINK_IMAGE: Int = 3
     }
 }

@@ -1,15 +1,15 @@
 package com.example.humblrvsv.data.repository
 
-import android.content.ContentValues
-import android.util.Log
 import com.example.humblrvsv.data.api.ApiPost
 import com.example.humblrvsv.data.api.ApiProfile
 import com.example.humblrvsv.data.api.ApiSubreddit
+import com.example.humblrvsv.domain.model.Friend
 import com.example.humblrvsv.domain.model.Profile
 import com.example.humblrvsv.domain.model.Subreddit
-import com.example.humblrvsv.domain.tools.Listing
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.domain.repository.RemoteRepository
+import com.example.humblrvsv.domain.tools.Listing
+import com.example.humblrvsv.domain.tools.toListFriend
 import com.example.humblrvsv.domain.tools.toListPost
 import com.example.humblrvsv.domain.tools.toListSubreddit
 import javax.inject.Inject
@@ -17,7 +17,8 @@ import javax.inject.Inject
 class RemoteRepositoryImpl @Inject constructor(
     private val apiSubreddit: ApiSubreddit,
     private val apiPost: ApiPost,
-    private val apiProfile: ApiProfile
+    private val apiProfile: ApiProfile,
+//    private val apiSinglePost: ApiSinglePost
 ) : RemoteRepository {
 
 
@@ -38,5 +39,9 @@ class RemoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getProfileInfo(): Profile = apiProfile.getProfile().toProfile()
+
+    override suspend fun getFriendList(): List<Friend> = apiProfile.getFriends().data.children.toListFriend()
+
+
 
 }

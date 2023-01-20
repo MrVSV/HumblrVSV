@@ -25,6 +25,9 @@ interface ApiPost {
     @GET("/user/{user_name}/saved/")
     suspend fun getSaved(
         @Path("user_name") userName: String?,
-        @Query("after") page: String
+        @Query("after") page: String,
+        @Query("type") type: String = "links"
     ): PostListingDto
+
+
 }

@@ -25,6 +25,7 @@ const val CALL =
 const val TOKEN_SHARED_NAME = "pref_token"
 const val TOKEN_SHARED_KEY = "token"
 const val TOKEN_ENABLED_KEY = "token_enabled"
+const val ONBOARDING_SHARED_NAME = "onboarding_name"
 const val ONBOARDING_IS_SHOWN = "onboarding_is_shown"
 const val SHARED_SELECTED_TAB_NAME = "selected_tab"
 const val SHARED_SELECTED_TAB_MODEL = "selected_model"

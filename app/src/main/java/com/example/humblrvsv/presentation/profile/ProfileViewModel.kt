@@ -2,6 +2,7 @@ package com.example.humblrvsv.presentation.profile
 
 
 import androidx.lifecycle.viewModelScope
+import com.example.humblrvsv.data.api.ApiSinglePost
 import com.example.humblrvsv.domain.model.Profile
 import com.example.humblrvsv.domain.tools.LoadState
 import com.example.humblrvsv.domain.usecase.GetProfileInfoUseCase
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val getProfileInfoUseCase: GetProfileInfoUseCase
+    private val getProfileInfoUseCase: GetProfileInfoUseCase,
+    private val apiSinglePost: ApiSinglePost
 ) : BaseViewModel() {
 
     private val _userInfoFlow = MutableSharedFlow<Profile>()
@@ -23,9 +25,15 @@ class ProfileViewModel @Inject constructor(
 
     fun getUserInfo(){
         viewModelScope.launch(Dispatchers.IO + handler){
-            _loadState.value = LoadState.LOADING
+            _loadState.value = LoadState.LOADING_STAGE_1
             _userInfoFlow.emit(getProfileInfoUseCase.getProfileInfo())
             _loadState.value = LoadState.SUCCESS
+        }
+    }
+
+    fun onClick(){
+        viewModelScope.launch(Dispatchers.IO) {
+            apiSinglePost.getSinglePost()
         }
     }
 
