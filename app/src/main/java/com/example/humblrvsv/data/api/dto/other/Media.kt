@@ -1,4 +1,4 @@
-package com.example.humblrvsv.data.api.dto
+package com.example.humblrvsv.data.api.dto.other
 
 
 import com.squareup.moshi.Json

@@ -88,9 +88,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 val action = ProfileFragmentDirections.actionProfileFragmentToFriendsFragment()
                 findNavController().navigate(action)
             }
-            btnLogout.setOnClickListener {
-                viewModel.onClick()
-            }
+
         }
     }
 

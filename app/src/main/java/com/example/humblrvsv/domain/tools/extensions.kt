@@ -8,7 +8,7 @@ import com.example.humblrvsv.R
 import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
 import com.example.humblrvsv.data.api.dto.commentdto.CommentListingDto
 import com.example.humblrvsv.data.api.dto.friends.FriendDto
-import com.example.humblrvsv.data.api.dto.linkdto.PostDto
+import com.example.humblrvsv.data.api.dto.postdto.PostDto
 import com.example.humblrvsv.data.api.dto.subredditdto.SubredditDto
 import com.example.humblrvsv.domain.model.*
 import com.google.android.material.tabs.TabLayout

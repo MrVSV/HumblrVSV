@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_homeFragment_to_singleSubredditFragment"
             app:destination="@id/singleSubredditFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_singlePostFragment"
+            app:destination="@id/singlePostFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -49,6 +52,9 @@
         <action
             android:id="@+id/action_favoritesFragment_to_singleSubredditFragment"
             app:destination="@id/singleSubredditFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_singlePostFragment"
+            app:destination="@id/singlePostFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -72,6 +78,15 @@
         android:name="com.example.humblrvsv.presentation.friends.FriendsFragment"
         android:label="fragment_friends"
         tools:layout="@layout/fragment_friends" />
+    <fragment
+        android:id="@+id/singlePostFragment"
+        android:name="com.example.humblrvsv.presentation.singlepost.SinglePostFragment"
+        android:label="fragment_single_post"
+        tools:layout="@layout/fragment_single_post" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>

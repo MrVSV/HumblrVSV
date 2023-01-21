@@ -1,4 +1,4 @@
-package com.example.humblrvsv.data.api.dto.linkdto
+package com.example.humblrvsv.data.api.dto.postdto
 
 
 import com.squareup.moshi.JsonClass

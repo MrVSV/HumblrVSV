@@ -48,7 +48,6 @@ class FriendsFragment : BaseFragment<FragmentFriendsBinding>() {
         viewModel.friends.onEach { friends ->
             adapter.setData(friends)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
-
     }
 
     private fun loadStateItemsObserve() {

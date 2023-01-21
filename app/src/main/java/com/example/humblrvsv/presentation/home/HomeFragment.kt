@@ -14,13 +14,14 @@ import com.example.humblrvsv.SHARED_SELECTED_TAB_MODEL
 import com.example.humblrvsv.SHARED_SELECTED_TAB_NAME
 import com.example.humblrvsv.SHARED_SELECTED_TAB_SOURCE
 import com.example.humblrvsv.databinding.FragmentHomeBinding
+import com.example.humblrvsv.domain.model.Post
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
-import com.example.humblrvsv.presentation.base.BaseFragment
-import com.example.humblrvsv.presentation.adapter.ThingPagingAdapter
 import com.example.humblrvsv.domain.tools.ClickableView
 import com.example.humblrvsv.domain.tools.ClickableView.*
 import com.example.humblrvsv.domain.tools.setSelectedTabListener
+import com.example.humblrvsv.presentation.adapter.ThingPagingAdapter
+import com.example.humblrvsv.presentation.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -96,14 +97,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             DOWN_VOTE -> Toast.makeText(requireContext(), "voteDown", Toast.LENGTH_SHORT).show()
             SAVE -> Toast.makeText(requireContext(), "post saved", Toast.LENGTH_SHORT).show()
             PHOTO -> TODO()
-            POST_TITLE -> TODO()
-            COMMENT -> TODO()
+            POST_TITLE -> {
+                item as Post
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSinglePostFragment(item.id))
+            }
+            COMMENT -> {
+                item as Post
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSinglePostFragment(item.id))
+            }
             SUBREDDIT -> {
+                item as Subreddit
+                if (!item.isUser)
                 findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToSingleSubredditFragment(
-                        (item as Subreddit).namePrefixed
+                        item.namePrefixed
                     )
                 )
+//                else{}
             }
             SUBSCRIBE -> Toast.makeText(requireContext(), "subscribed", Toast.LENGTH_SHORT).show()
             FRIEND -> TODO()

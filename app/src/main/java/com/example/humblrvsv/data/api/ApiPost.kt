@@ -1,6 +1,6 @@
 package com.example.humblrvsv.data.api
 
-import com.example.humblrvsv.data.api.dto.linkdto.PostListingDto
+import com.example.humblrvsv.data.api.dto.postdto.PostListingDto
 
 
 import retrofit2.http.GET

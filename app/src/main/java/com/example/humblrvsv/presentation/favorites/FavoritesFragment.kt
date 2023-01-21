@@ -10,14 +10,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import com.example.humblrvsv.*
+import com.example.humblrvsv.SHARED_PROFILE
+import com.example.humblrvsv.SHARED_PROFILE_USER_NAME
+import com.example.humblrvsv.SHARED_SELECTED_TAB_NAME
+import com.example.humblrvsv.SHARED_SELECTED_TAB_SAVED_MODEL
 import com.example.humblrvsv.databinding.FragmentFavoritesBinding
+import com.example.humblrvsv.domain.model.Post
 import com.example.humblrvsv.domain.model.Subreddit
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.domain.tools.ClickableView
 import com.example.humblrvsv.domain.tools.setSelectedTabListener
-import com.example.humblrvsv.presentation.base.BaseFragment
 import com.example.humblrvsv.presentation.adapter.ThingPagingAdapter
+import com.example.humblrvsv.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -92,15 +96,23 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
             ClickableView.SAVE -> Toast.makeText(requireContext(), "post saved", Toast.LENGTH_SHORT)
                 .show()
             ClickableView.PHOTO -> TODO()
-            ClickableView.POST_TITLE -> TODO()
-            ClickableView.COMMENT -> TODO()
+            ClickableView.POST_TITLE -> {
+                item as Post
+                findNavController().navigate(FavoritesFragmentDirections.actionFavoritesFragmentToSinglePostFragment(item.id))
+            }
+            ClickableView.COMMENT -> {
+                item as Post
+                findNavController().navigate(FavoritesFragmentDirections.actionFavoritesFragmentToSinglePostFragment(item.id))
+            }
             ClickableView.SUBREDDIT -> {
                 item as Subreddit
+//                if (!item.isUser)
                 findNavController().navigate(
                     FavoritesFragmentDirections.actionFavoritesFragmentToSingleSubredditFragment(
                         item.namePrefixed
                     )
                 )
+//                else{}
             }
             ClickableView.SUBSCRIBE -> Toast.makeText(
                 requireContext(),

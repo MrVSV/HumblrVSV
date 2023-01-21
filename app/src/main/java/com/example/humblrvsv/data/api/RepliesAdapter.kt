@@ -1,13 +1,10 @@
 package com.example.humblrvsv.data.api
 
-import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
-import com.squareup.moshi.FromJson
-
-class RepliesAdapter {
-    @FromJson
-    fun fromJson(response: CommentDto): CommentDto? {
-        return if (response.data.replies is String) {
-            null
-        } else response
-    }
-}
+//class RepliesAdapter {
+//    @FromJson
+//    fun fromJson(response: CommentDto): CommentDto? {
+//        return if (response.data.replies is String) {
+//            null
+//        } else response
+//    }
+//}

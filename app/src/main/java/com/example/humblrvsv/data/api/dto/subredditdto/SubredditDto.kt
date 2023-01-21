@@ -45,15 +45,20 @@ class SubredditDto(
         val url: String?,
         @Json(name = "mobile_banner_image")
         val mobileBannerImage: String?,
+        @Json(name = "subreddit_type")
+        val subredditType: String
     )
-    fun toSubreddit() = Subreddit(
-        namePrefixed = data.displayNamePrefixed,
-        url = data.url,
-        isUserSubscriber = data.userIsSubscriber,
-        description = data.description,
-        subscribers = data.subscribers,
-        created = data.created,
-        id = data.id,
-        name = data.name
-    )
+    fun toSubreddit(): Subreddit {
+        return Subreddit(
+            namePrefixed = data.displayNamePrefixed,
+            url = data.url,
+            isUserSubscriber = data.userIsSubscriber,
+            description = data.description,
+            subscribers = data.subscribers,
+            created = data.created,
+            id = data.id,
+            name = data.name,
+            isUser = data.subredditType == "user"
+        )
+    }
 }

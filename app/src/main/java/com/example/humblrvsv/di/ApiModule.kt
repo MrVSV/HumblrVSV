@@ -2,10 +2,10 @@ package com.example.humblrvsv.di
 
 import android.content.Context
 import com.example.humblrvsv.data.api.*
-import com.example.humblrvsv.data.api.dto.More
+import com.example.humblrvsv.data.api.dto.other.More
 import com.example.humblrvsv.data.api.dto.ThingDto
 import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
-import com.example.humblrvsv.data.api.dto.linkdto.PostDto
+import com.example.humblrvsv.data.api.dto.postdto.PostDto
 import com.example.humblrvsv.data.api.interceptor.AuthTokenInterceptor
 import com.example.humblrvsv.data.api.interceptor.AuthTokenInterceptorQualifier
 import com.example.humblrvsv.data.api.interceptor.AuthTokenProvider
@@ -71,11 +71,10 @@ class ApiModule {
 
     @Provides
     @Singleton
-    @Named("Converted")
-    fun provideRetrofitConverted(okhttpClient: OkHttpClient): Retrofit {
-        val moshi = Moshi.Builder()
+    fun provideMoshi(): Moshi =
+        Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
-            .add(RepliesAdapter())
+//            .add(RepliesAdapter())
             .add(
                 PolymorphicJsonAdapterFactory.of(ThingDto::class.java, "kind")
                     .withSubtype(PostDto::class.java, "t3")
@@ -83,6 +82,11 @@ class ApiModule {
                     .withSubtype(More::class.java, "more")
             )
             .build()
+
+    @Provides
+    @Singleton
+    @Named("Converted")
+    fun provideRetrofitConverted(okhttpClient: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://oauth.reddit.com/")
             .addConverterFactory(ScalarsConverterFactory.create())

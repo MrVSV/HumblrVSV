@@ -1,6 +1,6 @@
-package com.example.humblrvsv.data.api.dto.linkdto
+package com.example.humblrvsv.data.api.dto.postdto
 
-import com.example.humblrvsv.data.api.dto.Media
+import com.example.humblrvsv.data.api.dto.other.Media
 import com.example.humblrvsv.data.api.dto.ThingDto
 import com.example.humblrvsv.domain.model.Post
 import com.squareup.moshi.Json

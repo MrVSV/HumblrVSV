@@ -1,10 +1,7 @@
 package com.example.humblrvsv.domain.repository
 
-import com.example.humblrvsv.domain.model.Friend
-import com.example.humblrvsv.domain.model.Profile
-import com.example.humblrvsv.domain.model.Subreddit
+import com.example.humblrvsv.domain.model.*
 import com.example.humblrvsv.domain.tools.Listing
-import com.example.humblrvsv.domain.model.Thing
 
 
 interface RemoteRepository {
@@ -18,4 +15,8 @@ interface RemoteRepository {
     suspend fun getProfileInfo(): Profile
 
     suspend fun getFriendList():List<Friend>
+
+    suspend fun getSinglePost(from:String, url: String):List<Thing>
+
+    suspend fun getUserInfo(userName: String): User
 }

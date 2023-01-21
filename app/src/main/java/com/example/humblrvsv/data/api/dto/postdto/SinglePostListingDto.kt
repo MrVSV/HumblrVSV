@@ -1,5 +1,6 @@
-package com.example.humblrvsv.data.api.dto
+package com.example.humblrvsv.data.api.dto.postdto
 
+import com.example.humblrvsv.data.api.dto.ThingDto
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
