@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.humblrvsv.databinding.FragmentFriendsBinding
 import com.example.humblrvsv.domain.model.Friend
 import com.example.humblrvsv.domain.tools.ClickableView
@@ -37,7 +38,12 @@ class FriendsFragment : BaseFragment<FragmentFriendsBinding>() {
         loadStateItemsObserve()
     }
 
-    private fun onClick(clickableView: ClickableView, item: Friend) {}
+    private fun onClick(clickableView: ClickableView, item: Friend) {
+        if (clickableView == ClickableView.USER)
+            findNavController().navigate(
+                FriendsFragmentDirections.actionFriendsFragmentToUserFragment(item.name)
+            )
+    }
 
     private fun settingAdapter() {
         binding.recycler.adapter = adapter

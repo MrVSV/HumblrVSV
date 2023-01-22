@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class GetSinglePostUseCase @Inject constructor(private val remoteRepository: RemoteRepository) {
 
-    suspend fun getSinglePost(url: String) = remoteRepository.getSinglePost("comments", url)
+    suspend fun getSinglePost(url: String) = remoteRepository.getSinglePost(url)
 }

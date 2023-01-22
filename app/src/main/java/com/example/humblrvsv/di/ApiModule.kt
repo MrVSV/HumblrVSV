@@ -2,9 +2,9 @@ package com.example.humblrvsv.di
 
 import android.content.Context
 import com.example.humblrvsv.data.api.*
-import com.example.humblrvsv.data.api.dto.other.More
 import com.example.humblrvsv.data.api.dto.ThingDto
 import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
+import com.example.humblrvsv.data.api.dto.other.More
 import com.example.humblrvsv.data.api.dto.postdto.PostDto
 import com.example.humblrvsv.data.api.interceptor.AuthTokenInterceptor
 import com.example.humblrvsv.data.api.interceptor.AuthTokenInterceptorQualifier
@@ -119,5 +119,10 @@ class ApiModule {
     @Singleton
     fun provideApiSinglePost(@Named("Converted") retrofit: Retrofit): ApiSinglePost =
         retrofit.create(ApiSinglePost::class.java)
+
+    @Provides
+    @Singleton
+    fun provideApiUser(@Named("Converted") retrofit: Retrofit): ApiUser =
+        retrofit.create(ApiUser::class.java)
 
 }

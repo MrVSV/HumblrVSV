@@ -6,7 +6,7 @@ data class Comment(
     val likedByUser: Boolean?,
 //    val replies: CommentListing?,
 //    val saved: Boolean?,
-    val author: String?,
+    val author: String,
 //    val parentId: String,
     val score: Int?,
 //    val authorFullname: String?,

@@ -16,7 +16,9 @@ interface RemoteRepository {
 
     suspend fun getFriendList():List<Friend>
 
-    suspend fun getSinglePost(from:String, url: String):List<Thing>
+    suspend fun getSinglePost(url: String):List<Thing>
+
+    suspend fun getUserContent(userName: String): List<Thing>
 
     suspend fun getUserInfo(userName: String): User
 }

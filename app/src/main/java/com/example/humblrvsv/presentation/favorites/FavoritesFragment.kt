@@ -95,7 +95,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
             ).show()
             ClickableView.SAVE -> Toast.makeText(requireContext(), "post saved", Toast.LENGTH_SHORT)
                 .show()
-            ClickableView.PHOTO -> TODO()
+            ClickableView.USER_C -> TODO()
             ClickableView.POST_TITLE -> {
                 item as Post
                 findNavController().navigate(FavoritesFragmentDirections.actionFavoritesFragmentToSinglePostFragment(item.id))
@@ -106,20 +106,27 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
             }
             ClickableView.SUBREDDIT -> {
                 item as Subreddit
-//                if (!item.isUser)
+                if (!item.isUser)
                 findNavController().navigate(
                     FavoritesFragmentDirections.actionFavoritesFragmentToSingleSubredditFragment(
                         item.namePrefixed
                     )
                 )
-//                else{}
+                else findNavController().navigate(
+                    FavoritesFragmentDirections.actionFavoritesFragmentToUserFragment(item.name)
+                )
             }
             ClickableView.SUBSCRIBE -> Toast.makeText(
                 requireContext(),
                 "subscribed",
                 Toast.LENGTH_SHORT
             ).show()
-            ClickableView.FRIEND -> TODO()
+            ClickableView.USER -> {
+                item as Post
+                findNavController().navigate(
+                    FavoritesFragmentDirections.actionFavoritesFragmentToUserFragment(item.author)
+                )
+            }
         }
     }
 

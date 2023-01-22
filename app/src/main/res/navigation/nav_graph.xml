@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_homeFragment_to_singlePostFragment"
             app:destination="@id/singlePostFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -55,6 +58,9 @@
         <action
             android:id="@+id/action_favoritesFragment_to_singlePostFragment"
             app:destination="@id/singlePostFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -72,12 +78,19 @@
         <argument
             android:name="subredditName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_singleSubredditFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/friendsFragment"
         android:name="com.example.humblrvsv.presentation.friends.FriendsFragment"
         android:label="fragment_friends"
-        tools:layout="@layout/fragment_friends" />
+        tools:layout="@layout/fragment_friends" >
+        <action
+            android:id="@+id/action_friendsFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
     <fragment
         android:id="@+id/singlePostFragment"
         android:name="com.example.humblrvsv.presentation.singlepost.SinglePostFragment"
@@ -85,6 +98,18 @@
         tools:layout="@layout/fragment_single_post" >
         <argument
             android:name="url"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_singlePostFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.humblrvsv.presentation.user.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" >
+        <argument
+            android:name="userName"
             app:argType="string" />
     </fragment>
 

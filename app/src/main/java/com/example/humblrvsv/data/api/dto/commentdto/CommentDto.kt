@@ -19,7 +19,7 @@ data class CommentDto(
 //        val replies: Any?,
         val saved: Boolean?,
         val id: String,
-        val author: String?,
+        val author: String,
         @Json(name = "parent_id")
         val parentId: String,
         val score: Int?,
@@ -34,7 +34,7 @@ data class CommentDto(
         val linkId: String?,
         @Json(name = "subreddit_name_prefixed")
         val subredditNamePrefixed: String?,
-        val depth: Int,
+        val depth: Int?,
         val count: Int?,
         val children: List<String>?
     )

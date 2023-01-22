@@ -1,13 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.user.UserFragment">
 
-    <TextView
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBarTop"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@id/user_data_frame"
+        app:layout_constraintEnd_toEndOf="@id/user_data_frame"
+        app:layout_constraintStart_toStartOf="@id/user_data_frame"
+        app:layout_constraintTop_toTopOf="@id/user_data_frame" />
+
+    <LinearLayout
+        android:id="@+id/user_data_frame"
+        android:layout_width="300dp"
+        android:layout_height="244dp"
+        android:layout_marginTop="51dp"
+        android:background="@drawable/layout_bg"
+        android:elevation="@android:dimen/app_icon_size"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="19dp"
+            android:background="@drawable/rounded" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/user_name_margin_top"
+            android:background="@drawable/round_corners_20alfa_btn"
+            android:textAlignment="center"
+            android:textSize="@dimen/standard_font_size" />
+
+        <TextView
+            android:id="@+id/user_id"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/profile_margin_top"
+            android:background="@drawable/round_corners_20alfa_btn"
+            android:text="@string/user_id"
+            android:textAlignment="center"
+            android:textSize="@dimen/medium_font_size" />
+
+        <TextView
+            android:id="@+id/karma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/profile_margin_top"
+            android:text="@string/karma"
+            android:textAlignment="center"
+            android:textSize="@dimen/karma_font_size" />
+
+        <TextView
+            android:id="@+id/followers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/followers"
+            android:textAlignment="center"
+            android:textSize="@dimen/karma_font_size" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
-
-</FrameLayout>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_data_frame" />
+</androidx.constraintlayout.widget.ConstraintLayout>

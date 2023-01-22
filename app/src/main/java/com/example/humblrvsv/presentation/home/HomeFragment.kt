@@ -96,7 +96,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             UP_VOTE -> Toast.makeText(requireContext(), "voteUp", Toast.LENGTH_SHORT).show()
             DOWN_VOTE -> Toast.makeText(requireContext(), "voteDown", Toast.LENGTH_SHORT).show()
             SAVE -> Toast.makeText(requireContext(), "post saved", Toast.LENGTH_SHORT).show()
-            PHOTO -> TODO()
+            USER_C -> TODO()
             POST_TITLE -> {
                 item as Post
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSinglePostFragment(item.id))
@@ -107,16 +107,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
             SUBREDDIT -> {
                 item as Subreddit
-                if (!item.isUser)
                 findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToSingleSubredditFragment(
                         item.namePrefixed
                     )
                 )
-//                else{}
             }
             SUBSCRIBE -> Toast.makeText(requireContext(), "subscribed", Toast.LENGTH_SHORT).show()
-            FRIEND -> TODO()
+            USER -> {
+                item as Post
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToUserFragment(item.author)
+                )
+            }
         }
     }
 }

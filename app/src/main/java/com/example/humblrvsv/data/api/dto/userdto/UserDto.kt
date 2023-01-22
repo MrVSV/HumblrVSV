@@ -13,7 +13,7 @@ data class UserDto(
     @JsonClass(generateAdapter = true)
     data class UserDataDto(
         @Json(name = "is_friend")
-        val isFriend: Boolean,
+        val isFriend: Boolean?,
         val id: String,
         @Json(name = "icon_img")
         val iconImg: String,

@@ -7,5 +7,5 @@ import javax.inject.Inject
 class GetUserContentUseCase @Inject constructor(private val remoteRepository: RemoteRepository) {
 
     suspend fun getUserContent(userName: String): List<Thing> =
-        remoteRepository.getSinglePost("user", userName)
+        remoteRepository.getUserContent(userName)
 }

@@ -5,9 +5,9 @@ import android.view.ViewGroup.VISIBLE
 import com.example.humblrvsv.databinding.ViewHolderPostTextBinding
 import com.example.humblrvsv.domain.model.Post
 import com.example.humblrvsv.domain.model.Thing
-import com.example.humblrvsv.presentation.base.BaseViewHolder
 import com.example.humblrvsv.domain.tools.ClickableView
 import com.example.humblrvsv.domain.tools.loadImage
+import com.example.humblrvsv.presentation.base.BaseViewHolder
 
 class PostTextViewHolder(private val binding: ViewHolderPostTextBinding) :
     BaseViewHolder<Thing>(binding) {
@@ -62,6 +62,7 @@ class PostTextViewHolder(private val binding: ViewHolderPostTextBinding) :
 
         binding.subredditName.text = item.subredditNamePrefixed
         binding.userName.text = "u/${item.author}"
+        binding.userName.setOnClickListener { onClick(ClickableView.USER, item) }
 
 
     }

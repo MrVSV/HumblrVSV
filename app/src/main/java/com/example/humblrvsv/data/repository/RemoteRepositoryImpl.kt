@@ -1,10 +1,7 @@
 package com.example.humblrvsv.data.repository
 
 import android.util.Log
-import com.example.humblrvsv.data.api.ApiPost
-import com.example.humblrvsv.data.api.ApiProfile
-import com.example.humblrvsv.data.api.ApiSinglePost
-import com.example.humblrvsv.data.api.ApiSubreddit
+import com.example.humblrvsv.data.api.*
 import com.example.humblrvsv.data.api.dto.commentdto.CommentDto
 import com.example.humblrvsv.data.api.dto.postdto.PostDto
 import com.example.humblrvsv.domain.model.*
@@ -19,7 +16,8 @@ class RemoteRepositoryImpl @Inject constructor(
     private val apiSubreddit: ApiSubreddit,
     private val apiPost: ApiPost,
     private val apiProfile: ApiProfile,
-    private val apiSinglePost: ApiSinglePost
+    private val apiSinglePost: ApiSinglePost,
+    private val apiUser: ApiUser
 ) : RemoteRepository {
 
 
@@ -54,9 +52,9 @@ class RemoteRepositoryImpl @Inject constructor(
     override suspend fun getFriendList(): List<Friend> =
         apiProfile.getFriends().data.children.toListFriend()
 
-    override suspend fun getSinglePost(from: String, url: String): List<Thing> {
+    override suspend fun getSinglePost(url: String): List<Thing> {
         val list = mutableListOf<Thing>()
-        apiSinglePost.getSinglePost(from, url).forEach { responseItem ->
+        apiSinglePost.getSinglePost(url).forEach { responseItem ->
             responseItem.data.children.forEach { child ->
                 if (child is PostDto) list.add(child.toPost())
                 else if (child is CommentDto) list.add(child.toComment())
@@ -66,6 +64,15 @@ class RemoteRepositoryImpl @Inject constructor(
         return list.toList()
     }
 
+    override suspend fun getUserContent(userName: String): List<Thing> {
+        val list = mutableListOf<Thing>()
+        apiUser.getUserContent(userName).data.children.forEach { child ->
+            if (child is PostDto) list.add(child.toPost())
+            else if (child is CommentDto) list.add(child.toComment())
+        }
+        return list.toList()
+    }
+
     override suspend fun getUserInfo(userName: String): User =
-        apiProfile.getUserInfo(userName).toUser()
+        apiUser.getUserInfo(userName).toUser()
 }

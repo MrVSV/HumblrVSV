@@ -7,8 +7,11 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.humblrvsv.databinding.FragmentSinglePostBinding
+import com.example.humblrvsv.domain.model.Comment
+import com.example.humblrvsv.domain.model.Post
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.domain.tools.ClickableView
 import com.example.humblrvsv.domain.tools.LoadState
@@ -70,6 +73,28 @@ class SinglePostFragment : BaseFragment<FragmentSinglePostBinding>() {
         }
     }
 
-    private fun onClick(clickableView: ClickableView, item: Thing) {}
+    private fun onClick(clickableView: ClickableView, item: Thing) {
+        when(clickableView){
+            ClickableView.UP_VOTE -> TODO()
+            ClickableView.DOWN_VOTE -> TODO()
+            ClickableView.SAVE -> TODO()
+            ClickableView.USER_C -> {
+                item as Comment
+                findNavController().navigate(
+                    SinglePostFragmentDirections.actionSinglePostFragmentToUserFragment(item.author)
+                )
+            }
+            ClickableView.POST_TITLE -> TODO()
+            ClickableView.COMMENT -> TODO()
+            ClickableView.SUBREDDIT -> TODO()
+            ClickableView.SUBSCRIBE -> TODO()
+            ClickableView.USER -> {
+                item as Post
+                findNavController().navigate(
+                    SinglePostFragmentDirections.actionSinglePostFragmentToUserFragment(item.author)
+                )
+            }
+        }
+    }
 }
 

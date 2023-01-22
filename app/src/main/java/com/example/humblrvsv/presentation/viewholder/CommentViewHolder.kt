@@ -21,6 +21,7 @@ class CommentViewHolder(private val binding: ViewHolderCommentBinding) :
         binding.commentBodyText.text = item.body
         binding.userName.text = "u/${item.author}"
         binding.likes.text = item.score.toString()
+        binding.userName.setOnClickListener { onClick(ClickableView.USER_C, item) }
 //        binding.root.setOnClickListener {
 //            onClick(ClickableView.COMMENT, item)
 //            if (binding.recyclerChild.visibility == View.GONE)

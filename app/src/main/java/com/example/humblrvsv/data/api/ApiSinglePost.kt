@@ -7,11 +7,8 @@ import retrofit2.http.Path
 
 interface ApiSinglePost{
 
-    @GET("/{from}/{url}/")
+    @GET("/comments/{url}/")
     suspend fun getSinglePost(
-        @Path("from") from: String,
-        @Path("url") url: String,
-//        @Query("after") page: String,
-//        @Query("type") type: String = "links"
+        @Path("url") url: String
     ): List<SinglePostListingDto>
 }
