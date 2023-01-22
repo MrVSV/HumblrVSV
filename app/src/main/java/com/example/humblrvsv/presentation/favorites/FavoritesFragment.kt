@@ -1,8 +1,8 @@
 package com.example.humblrvsv.presentation.favorites
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -127,11 +127,16 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
                     FavoritesFragmentDirections.actionFavoritesFragmentToUserFragment(item.author)
                 )
             }
+            ClickableView.SHARE -> {
+                item as Post
+                shareLinkOnPhoto(item.url)
+            }
         }
     }
-
-    override fun onDestroy() {
-        Log.d("onDestroy", "favorites")
-        super.onDestroy()
+    private fun shareLinkOnPhoto(url: String) {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, url)
+        startActivity(Intent.createChooser(sharingIntent, "Share"))
     }
 }

@@ -59,7 +59,6 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>() {
     private fun tokenObserve(preferences: SharedPreferences) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.token.collect { token ->
-                binding.text.text = token
                 preferences.edit().putString(TOKEN_SHARED_KEY, token).apply()
                 preferences.edit().putBoolean(TOKEN_ENABLED_KEY, true).apply()
             }

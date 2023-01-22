@@ -17,6 +17,7 @@ class PostTextViewHolder(private val binding: ViewHolderPostTextBinding) :
 
         showScore(item.score)
 
+        binding.btnShare.setOnClickListener { onClick(ClickableView.SHARE, item) }
         binding.btnUpVote.isSelected = item.likedByUser == true
 
         binding.btnUpVote.setOnClickListener {

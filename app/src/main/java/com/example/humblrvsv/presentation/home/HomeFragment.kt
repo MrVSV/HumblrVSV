@@ -1,5 +1,6 @@
 package com.example.humblrvsv.presentation.home
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -120,7 +121,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     HomeFragmentDirections.actionHomeFragmentToUserFragment(item.author)
                 )
             }
+            SHARE -> {
+                item as Post
+                shareLinkOnPhoto(item.url)
+            }
         }
+    }
+    private fun shareLinkOnPhoto(url: String) {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, url)
+        startActivity(Intent.createChooser(sharingIntent, "Share"))
     }
 }
 

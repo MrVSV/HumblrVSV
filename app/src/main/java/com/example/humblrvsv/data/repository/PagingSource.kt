@@ -5,9 +5,9 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.humblrvsv.domain.tools.Listing
 import com.example.humblrvsv.domain.model.Thing
 import com.example.humblrvsv.domain.repository.RemoteRepository
+import com.example.humblrvsv.domain.tools.Listing
 import javax.inject.Inject
 
 class PagingSource @Inject constructor(
@@ -22,23 +22,22 @@ class PagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Thing> {
         Log.d(TAG, "load: ")
         val page = params.key ?: FIRST_PAGE
-//        Log.i(TAG, "source: $source")
-//        return kotlin.runCatching {
-//
-//        }.fold(
-//            onSuccess = {
-//                Log.i(TAG, "что-то грузит")
-               return LoadResult.Page(
-                    data = repository.getThingList(listing, source, page),
+        return kotlin.runCatching {
+            repository.getThingList(listing, source, page)
+        }.fold(
+            onSuccess = {
+                Log.i(TAG, "что-то грузит")
+                PagingSource.LoadResult.Page(
+                    data = it,
                     prevKey = null,
-                    nextKey = if (repository.getThingList(listing, source, page).isEmpty()) null else repository.getThingList(listing, source, page).last().name
+                    nextKey = if (it.isEmpty()) null else it.last().name
                 )
-//
-//            }, onFailure = {
-//                Log.i(TAG, "не грузит нихрена")
-//                LoadResult.Error(it)
-//            }
-//        )
+
+            }, onFailure = {
+                Log.i(TAG, "не грузит нихрена")
+                PagingSource.LoadResult.Error(it)
+            }
+        )
     }
 
     private companion object {
@@ -46,19 +45,4 @@ class PagingSource @Inject constructor(
     }
 }
 
-//return kotlin.runCatching {
-//    repository.getThingList(listing, source, page)
-//}.fold(
-//onSuccess = {
-//    Log.i(TAG, "что-то грузит")
-//    PagingSource.LoadResult.Page(
-//        data = it,
-//        prevKey = null,
-//        nextKey = if (it.isEmpty()) null else it.last().name
-//    )
-//
-//}, onFailure = {
-//    Log.i(TAG, "не грузит нихрена")
-//    PagingSource.LoadResult.Error(it)
-//}
-//)
+

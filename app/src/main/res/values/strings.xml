@@ -28,4 +28,5 @@
     <string name="karma">Karma: %1$d</string>
     <string name="user_id">Id: %1$s</string>
     <string name="followers">Followers: %1$d</string>
+    <string name="auth_under_logo">Find like-minded people with Humblr</string>
 </resources>

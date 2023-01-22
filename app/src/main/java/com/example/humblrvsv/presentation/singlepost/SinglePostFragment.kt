@@ -1,5 +1,6 @@
 package com.example.humblrvsv.presentation.singlepost
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -75,9 +76,9 @@ class SinglePostFragment : BaseFragment<FragmentSinglePostBinding>() {
 
     private fun onClick(clickableView: ClickableView, item: Thing) {
         when(clickableView){
-            ClickableView.UP_VOTE -> TODO()
-            ClickableView.DOWN_VOTE -> TODO()
-            ClickableView.SAVE -> TODO()
+            ClickableView.UP_VOTE -> Toast.makeText(requireContext(), "voteUp", Toast.LENGTH_SHORT).show()
+            ClickableView.DOWN_VOTE -> Toast.makeText(requireContext(), "voteDown", Toast.LENGTH_SHORT).show()
+            ClickableView.SAVE -> Toast.makeText(requireContext(), "post saved", Toast.LENGTH_SHORT).show()
             ClickableView.USER_C -> {
                 item as Comment
                 findNavController().navigate(
@@ -94,7 +95,18 @@ class SinglePostFragment : BaseFragment<FragmentSinglePostBinding>() {
                     SinglePostFragmentDirections.actionSinglePostFragmentToUserFragment(item.author)
                 )
             }
+            ClickableView.SHARE -> {
+                item as Post
+                shareLinkOnPhoto(item.url)
+            }
         }
+    }
+
+    private fun shareLinkOnPhoto(url: String) {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, url)
+        startActivity(Intent.createChooser(sharingIntent, "Share"))
     }
 }
 

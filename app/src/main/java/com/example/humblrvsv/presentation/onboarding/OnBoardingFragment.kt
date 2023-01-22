@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.humblrvsv.ONBOARDING_IS_SHOWN
 import com.example.humblrvsv.ONBOARDING_SHARED_NAME
@@ -52,7 +51,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
 
     private fun setAuthorizeButton() {
         binding.skipText.setOnClickListener {
-            Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
             findNavController().navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToAuthFragment())
         }
     }

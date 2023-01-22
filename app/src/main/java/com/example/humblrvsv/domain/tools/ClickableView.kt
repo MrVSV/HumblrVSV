@@ -9,5 +9,6 @@ enum class ClickableView(val vote: Int = 0) {
     COMMENT,
     SUBREDDIT,
     SUBSCRIBE,
-    USER
+    USER,
+    SHARE
 }
