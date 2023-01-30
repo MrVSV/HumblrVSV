@@ -7,7 +7,7 @@ data class Post(
     val title: String,
     val subredditNamePrefixed: String,
     override val name: String,
-    val score: Int,
+    var score: Int,
 //    val thumbnail: String?,
     val postHint: String?,
     val created: Double,
@@ -20,6 +20,6 @@ data class Post(
     val url: String,
     val fallbackUrl: String?,
     val isVideo: Boolean,
-    val likedByUser: Boolean?,
+    var likedByUser: Boolean?,
     var dir: Int
 ): Thing

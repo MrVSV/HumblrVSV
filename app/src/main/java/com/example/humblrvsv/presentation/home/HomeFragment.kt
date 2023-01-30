@@ -94,8 +94,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun onClick(clickableView: ClickableView, item: Thing) {
         when (clickableView) {
-            UP_VOTE -> Toast.makeText(requireContext(), "voteUp", Toast.LENGTH_SHORT).show()
-            DOWN_VOTE -> Toast.makeText(requireContext(), "voteDown", Toast.LENGTH_SHORT).show()
+            UP_VOTE -> viewModel.voteUp(item as Post)
+            DOWN_VOTE -> viewModel.voteDown(item as Post)
             SAVE -> Toast.makeText(requireContext(), "post saved", Toast.LENGTH_SHORT).show()
             USER_C -> TODO()
             POST_TITLE -> {
