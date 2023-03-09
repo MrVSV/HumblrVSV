@@ -7,6 +7,8 @@
 
 package com.example.humblrvsv.`data`.api.dto.commentdto
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
@@ -57,11 +59,11 @@ public class CommentDto_CommentDataDtoJsonAdapter(
     private val nullableDoubleAdapter: JsonAdapter<Double?> =
         moshi.adapter(Double::class.javaObjectType, emptySet(), "created")
 
-    private val nullableListOfStringAdapter: JsonAdapter<List<String>?> =
-        moshi.adapter(
-            Types.newParameterizedType(List::class.java, String::class.java), emptySet(),
-            "children"
-        )
+//    private val nullableListOfStringAdapter: JsonAdapter<List<String>?> =
+//        moshi.adapter(
+//            Types.newParameterizedType(List::class.java, String::class.java), emptySet(),
+//            "children"
+//        )
 
     public override fun toString(): String = buildString(47) {
         append("GeneratedJsonAdapter(").append("CommentDto.CommentDataDto").append(')')
@@ -93,7 +95,8 @@ public class CommentDto_CommentDataDtoJsonAdapter(
                 1 -> likes = nullableBooleanAdapter.fromJson(reader)
                 2 -> {
                     val values = reader.readJsonValue()
-                    if (values == "") reader.skipValue()
+                    Log.d(TAG, "fromJson: $values")
+                    if (values == "") {}
                     else replies = commentListingDtoAdapter.fromJsonValue(values)
                 }
                 3 -> saved = nullableBooleanAdapter.fromJson(reader)
@@ -132,7 +135,7 @@ public class CommentDto_CommentDataDtoJsonAdapter(
         return CommentDto.CommentDataDto(
             subredditId = subredditId,
             likes = likes,
-            replies = replies ?: throw Util.missingProperty("replies", "replies", reader),
+            replies = replies,
             saved = saved,
             id = id ?: throw Util.missingProperty("id", "id", reader),
             author = author ?: throw Util.missingProperty("author", "author", reader),

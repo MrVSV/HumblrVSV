@@ -4,7 +4,7 @@ data class Comment(
     override val id: String,
     override val name: String,
     val likedByUser: Boolean?,
-//    val replies: CommentListing?,
+    val replies: CommentListing?,
 //    val saved: Boolean?,
     val author: String,
 //    val parentId: String,

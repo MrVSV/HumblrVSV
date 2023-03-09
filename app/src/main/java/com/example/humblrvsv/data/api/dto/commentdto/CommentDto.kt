@@ -19,7 +19,7 @@ data class CommentDto(
         @Json(name = "subreddit_id")
         val subredditId: String?,
         val likes: Boolean?,
-        val replies: CommentListingDto,
+        val replies: CommentListingDto?,
         val saved: Boolean?,
         val id: String,
         val author: String,
@@ -42,21 +42,17 @@ data class CommentDto(
 //        val children: List<String>?
     )
 
-    fun toComment(): Comment {
-//        data.replies as CommentListingDto
-//        val replies = data.replies
-        return Comment(
-            id = data.id,
-            name = data.name,
-            likedByUser = data.likes,
-//            replies = replies.toCommentListing(),
-            author = data.author,
-            score = data.score,
-            body = data.body,
-            permalink = data.permalink,
-            created = data.created,
-            linkId = data.linkId,
-            subredditNamePrefixed = data.subredditNamePrefixed
-        )
-    }
+    fun toComment(): Comment = Comment(
+        id = data.id,
+        name = data.name,
+        likedByUser = data.likes,
+        replies = data.replies?.toCommentListing(),
+        author = data.author,
+        score = data.score,
+        body = data.body,
+        permalink = data.permalink,
+        created = data.created,
+        linkId = data.linkId,
+        subredditNamePrefixed = data.subredditNamePrefixed
+    )
 }
