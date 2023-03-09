@@ -2,7 +2,7 @@ package com.example.humblrvsv.domain.model
 
 data class Post(
     val selfText: String?,
-    val authorFullname: String,
+    val authorFullname: String?,
     val saved: Boolean,
     val title: String,
     val subredditNamePrefixed: String,

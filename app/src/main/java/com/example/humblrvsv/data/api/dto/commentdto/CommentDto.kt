@@ -8,15 +8,18 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class CommentDto(
-   override val kind: String,
+    override val kind: String,
     val data: CommentDataDto
-): ThingDto {
-    @JsonClass(generateAdapter = true)
+) : ThingDto {
+    @JsonClass(
+        generateAdapter = true,
+        generator = "com.example.humblrvsv.data.api.dto.commentdto.CommentDto_CommentDataDtoJsonAdapter"
+    )
     data class CommentDataDto(
         @Json(name = "subreddit_id")
         val subredditId: String?,
         val likes: Boolean?,
-//        val replies: Any?,
+        val replies: CommentListingDto,
         val saved: Boolean?,
         val id: String,
         val author: String,
@@ -36,7 +39,7 @@ data class CommentDto(
         val subredditNamePrefixed: String?,
         val depth: Int?,
         val count: Int?,
-        val children: List<String>?
+//        val children: List<String>?
     )
 
     fun toComment(): Comment {

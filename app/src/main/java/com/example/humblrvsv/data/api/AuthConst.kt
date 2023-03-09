@@ -21,7 +21,6 @@ const val CALL =
             "&duration=" + DURATION +
             "&scope=" + SCOPE
 
-
 const val TOKEN_SHARED_NAME = "pref_token"
 const val TOKEN_SHARED_KEY = "token"
 const val TOKEN_ENABLED_KEY = "token_enabled"

@@ -16,23 +16,5 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">11sp</item>
-    </style>
 
-    <style name="RoundedTabLayoutStyle" parent="Widget.Design.TabLayout">
-        <item name="tabTextAppearance">@style/MineCustomTabText</item>
-        <item name="tabSelectedTextColor">@color/light_gray</item>
-        <item name="tabTextColor">@color/primary</item>
-        <item name="android:background">@drawable/tab_bg</item>
-        <item name="tabBackground">@drawable/tab_selector</item>
-        <item name="tabIndicatorAnimationMode">elastic</item>
-        <item name="tabIndicator">@null</item>
-        <item name="tabMode">fixed</item>
-        <item name="tabMinWidth">@dimen/tab_item_min_width</item>
-        <item name="android:layout_height">@dimen/tab_layout_height</item>
-        <item name="android:layout_width">wrap_content</item>
-
-
-    </style>
 </resources>

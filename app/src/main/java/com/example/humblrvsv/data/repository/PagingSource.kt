@@ -22,22 +22,23 @@ class PagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Thing> {
         Log.d(TAG, "load: ")
         val page = params.key ?: FIRST_PAGE
-        return kotlin.runCatching {
-            repository.getThingList(listing, source, page)
-        }.fold(
-            onSuccess = {
-                Log.i(TAG, "что-то грузит")
-                PagingSource.LoadResult.Page(
-                    data = it,
-                    prevKey = null,
-                    nextKey = if (it.isEmpty()) null else it.last().name
-                )
-
-            }, onFailure = {
-                Log.i(TAG, "не грузит нихрена")
-                PagingSource.LoadResult.Error(it)
-            }
+        Log.i(TAG, "source: $source")
+//        return kotlin.runCatching {
+//
+//        }.fold(
+//            onSuccess = {
+//                Log.i(TAG, "что-то грузит")
+        return LoadResult.Page(
+            data = repository.getThingList(listing, source, page),
+            prevKey = null,
+            nextKey = if (repository.getThingList(listing, source, page).isEmpty()) null else repository.getThingList(listing, source, page).last().name
         )
+//
+//            }, onFailure = {
+//                Log.i(TAG, "не грузит нихрена")
+//                LoadResult.Error(it)
+//            }
+//        )
     }
 
     private companion object {

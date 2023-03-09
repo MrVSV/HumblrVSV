@@ -17,7 +17,7 @@ data class PostDto(
         @Json(name = "selftext")
         val selfText: String?,
         @Json(name = "author_fullname")
-        val authorFullname: String,
+        val authorFullname: String?,
         val saved: Boolean,
         val title: String,
         @Json(name = "subreddit_name_prefixed")

@@ -29,4 +29,8 @@
     <string name="user_id">Id: %1$s</string>
     <string name="followers">Followers: %1$d</string>
     <string name="auth_under_logo">Find like-minded people with Humblr</string>
+    <string name="posts">Posts</string>
+    <string name="subreddits">Subreddits</string>
+    <string name="popular">Popular</string>
+    <string name="new_">New</string>
 </resources>
